@@ -191,21 +191,39 @@ textarea.code{width:100%;height:120px;font:12px ui-monospace,monospace}
 .steps-n{counter-reset:s;list-style:none;padding:0;margin:8px 0}
 .steps-n li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:14px}
 .steps-n li:before{content:counter(s);position:absolute;left:0;top:5px;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font:800 12px "Plus Jakarta Sans",system-ui,sans-serif;display:flex;align-items:center;justify-content:center}
+.meal-row{display:flex;gap:10px;align-items:center;padding:11px 2px;border-bottom:1px solid var(--soft);cursor:pointer}
+.meal-row:last-of-type{border-bottom:0}
+.meal-row .mt{font:800 13px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--navy2);min-width:42px}
+.meal-row .mn{font-weight:800;font-size:14.5px}
+.meal-row .md{font-size:12.5px;color:var(--mute);line-height:1.3}
+.ms{flex:none;border-radius:999px;padding:6px 11px;font:800 12px "Plus Jakarta Sans",system-ui,sans-serif;white-space:nowrap}
+.ms-todo{background:var(--gold);color:var(--navy)}
+.ms-ok{background:#e3f7ec;color:var(--ok)}
+.ms-skip{background:var(--soft);color:var(--mute)}
+.ms-alt{background:#eaf1ff;color:var(--navy2)}
+.bar{height:8px;border-radius:6px;background:#edf0f6;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px}
+.mini2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mini2 .card{margin-bottom:14px}
+.mini-l{font-size:13px;font-weight:800;color:var(--mute)}
+.mini-v{font-size:22px;font-weight:800}
+.rb{width:40px;height:40px;border-radius:12px;border:0;background:var(--soft);font:800 20px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--navy);cursor:pointer}
+nav button{font-size:10px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <header>
   <div><h1 id="hdrTitle">Diet <span>&amp; Training</span></h1><div class="sub" id="hdrSub">—</div></div>
-  <button class="hdr-btn" id="hdrG" onclick="go('guilly')" aria-label="Parla con Guilly"></button>
+  <button class="hdr-btn" id="hdrG" onclick="go('set')" aria-label="Impostazioni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
 </header>
 <main id="view"></main>
 <nav id="nav">
   <button data-t="oggi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Oggi</button>
-  <button data-t="piano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Piano</button>
+  <button data-t="piano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>Allenamento</button>
   <button data-t="cibo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a3 3 0 0 0 6 0V3M10 3v18M18 3c-1.8 1.5-2.6 3.6-2.6 6.2V14H18v7"/></svg>Cibo</button>
+  <button data-t="prog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progressi</button>
   <button data-t="guilly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2M9 9.5h.01M15 9.5h.01"/></svg>Guilly</button>
-  <button data-t="io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>Io</button>
 </nav>
 <div id="sheet"><div class="in" id="sheetIn"></div></div>
 <div id="timer">
@@ -525,14 +543,14 @@ function $(id){return document.getElementById(id);}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2600);}
 
 // ============ STORAGE ============
-function blank(){return {v:2,settings:Object.assign({},DEF_SETTINGS),shifts:null,shiftsUpdated:'',overrides:{},weights:{},waist:{},logs:{},days:{},menu:{},shop:{},lastBackup:'',chat:[],push:null};}
+function blank(){return {v:2,settings:Object.assign({},DEF_SETTINGS),shifts:null,shiftsUpdated:'',overrides:{},weights:{},waist:{},logs:{},days:{},menu:{},shop:{},lastBackup:'',chat:[],push:null,meals:{}};}
 function load(){
   let o=null;
   try{o=JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(e){o=null;}
   const b=blank();
   if(!o||typeof o!=='object') return b;
   o.settings=Object.assign({},DEF_SETTINGS,o.settings||{});
-  for(const k of ['overrides','weights','waist','logs','days','menu','shop']) if(!o[k]||typeof o[k]!=='object') o[k]={};
+  for(const k of ['overrides','weights','waist','logs','days','menu','shop','meals']) if(!o[k]||typeof o[k]!=='object') o[k]={};
   if(!Array.isArray(o.chat)) o.chat=[];
   if(!o.v||o.v<2){if(o.settings.start==='2026-11-25')o.settings.start='2026-11-26';o.v=2;}
   return o;
@@ -1274,26 +1292,6 @@ function qtyTxt(f,g){
   if(F.pz&&F.pzl) q+=' · '+Math.ceil(g/F.pz)+' '+F.pzl;
   return q;
 }
-function eatenKcal(d){
-  const x=S.days[d];if(!x)return null;
-  const s=(x.P||0)+(x.C||0)+(x.G||0)+(x.Fr||0)+(x.V||0);if(!s)return null;
-  return (x.P||0)*PORTIONS.P.kcal+(x.C||0)*PORTIONS.C.kcal+(x.G||0)*PORTIONS.G.kcal+(x.Fr||0)*PORTIONS.Fr.kcal+(x.V||0)*PORTIONS.V.kcal+120;
-}
-function followMenu(){
-  const d=today(), dd=day(d), sl=slotsOf(d);
-  for(const k of ['P','C','G','Fr','V']) dd[k]=sl.reduce((a,s)=>a+(s.por[k]||0),0);
-  save();render();toast('Porzioni di oggi compilate dal menù');
-}
-
-function vCibo(){
-  const tabs=[['menu','📋 Menù e ricette'],['spesa','🛒 Spesa'],['graf','📊 Grafici'],['guida','📖 Porzioni']];
-  let h='<div class="pill-tabs">'+tabs.map(t=>'<button class="btn sm '+(cTab===t[0]?'':'ghost')+'" onclick="cTab=\''+t[0]+'\';render()">'+t[1]+'</button>').join('')+'</div>';
-  if(cTab==='menu') h+=vMenu();
-  else if(cTab==='spesa') h+=vSpesa();
-  else if(cTab==='graf') h+=vGraf();
-  else h+=vGuida();
-  return h;
-}
 function weekNav(ws,fn){
   return '<div class="row between" style="margin-bottom:8px"><button class="btn sm ghost" onclick="'+fn+'(-7)">◀</button><b class="cond" style="font-size:18px">'+fmtShort(ws)+' – '+fmtShort(addD(ws,6))+'</b><button class="btn sm ghost" onclick="'+fn+'(7)">▶</button></div>';
 }
@@ -1399,10 +1397,150 @@ function drawCibo(){
   drawChart();
 }
 
+// ============ DIARIO PASTI (un tocco) ============
+// kcal e proteine (g) per una porzione "normale"; alc = bevanda alcolica
+const XFOODS = [
+  ['muffin','Muffin (anche ai mirtilli)','bar',420,6],['cornetto','Cornetto vuoto','bar',230,5],['cornettoc','Cornetto con crema o marmellata','bar',300,5],['cornettoch','Cornetto al cioccolato o brioche farcita','bar',340,5],
+  ['cappuccino','Cappuccino','bar',90,5],['caffez','Caffè con zucchero','bar',25,0],['lattem','Latte macchiato','bar',130,7],['biscotti','Biscotti frollini (5)','bar',230,3],
+  ['fettemarm','Fette biscottate con marmellata (4)','bar',220,5],['toast','Toast prosciutto e formaggio','bar',300,16],['spremuta','Spremuta d\'arancia','bar',80,1],
+  ['pizza','Pizza margherita','fuori',800,32],['pizzaf','Pizza farcita','fuori',1000,40],['trancio','Trancio di pizza al taglio','fuori',350,12],
+  ['panino','Panino prosciutto e formaggio','fuori',500,22],['piadina','Piadina (crudo e squacquerone)','fuori',650,25],['pastarag','Piatto di pasta al ragù','fuori',650,25],
+  ['pastapom','Piatto di pasta al pomodoro','fuori',500,16],['lasagna','Lasagna','fuori',600,30],['risotto','Risotto','fuori',550,14],['hamburger','Menù hamburger e patatine','fuori',1000,35],
+  ['kebab','Kebab','fuori',750,35],['sushi','Sushi (12 pezzi)','fuori',550,22],['insalatona','Insalatona con tonno','fuori',450,30],['taglieri','Tagliere di affettati e formaggi','fuori',600,35],
+  ['cotoletta','Cotoletta con patatine','fuori',800,35],['grigliata','Carne o pesce alla griglia con contorno','fuori',450,40],['minestra','Minestra o passato di verdure','fuori',200,7],
+  ['gelato','Gelato (coppetta 2 gusti)','dolci',250,4],['cioccolato','Cioccolato (2 quadretti)','dolci',110,1],['barretta','Barretta di cioccolato','dolci',250,3],['merendina','Merendina','dolci',180,3],
+  ['patatine','Patatine in sacchetto','dolci',215,2],['fruttasecca','Frutta secca (una manciata)','dolci',180,6],['torta','Fetta di torta','dolci',400,5],['tiramisu','Tiramisù','dolci',450,8],
+  ['yfrutta','Yogurt alla frutta','dolci',130,5],['barprot','Barretta proteica','dolci',200,20],['frutto','Un frutto','dolci',70,1],['ygreco','Yogurt greco 0% (vasetto)','dolci',100,17],
+  ['birra','Birra media','bere',190,1,1],['birrap','Birra piccola','bere',140,1,1],['vino','Calice di vino','bere',100,0,1],['spritz','Spritz','bere',170,0,1],['cocktail','Cocktail','bere',250,0,1],['amaro','Amaro o digestivo','bere',100,0,1],
+  ['cola','Bibita zuccherata (lattina)','bere',140,0],['succo','Succo di frutta','bere',120,0],['zero','Bibita zero','bere',2,0]
+].map(a=>({id:a[0],n:a[1],c:a[2],k:a[3],p:a[4],alc:!!a[5]}));
+const XF = Object.fromEntries(XFOODS.map(f=>[f.id,f]));
+const XCATS = [['bar','☕ Colazione e bar'],['fuori','🍕 Pasti fuori'],['dolci','🍫 Snack e dolci'],['bere','🍺 Da bere']];
+const SIZES = [[0.7,'Piccola'],[1,'Normale'],[1.4,'Grande']];
+let mDraft = null; // {d, i, items:[[id,mult]], q}
+
+function mealsOf(d){if(!S.meals)S.meals={};if(!S.meals[d])S.meals[d]={};return S.meals[d];}
+function xSum(items){let k=0,p=0;for(const [id,m] of items||[]){const f=XF[id];if(f){k+=f.k*m;p+=f.p*m;}}return {k:k,p:p};}
+function dayEaten(d){
+  const L=(S.meals&&S.meals[d])||{};
+  if(!Object.keys(L).length) return null;
+  const dm=d>=S.settings.start?dayMenu(d):{meals:[]};
+  let k=0,p=0;
+  for(const key in L){
+    const e=L[key];if(!e)continue;
+    if(e.st==='menu'){const x=dm.meals.find(z=>String(z.s.i)===key);if(x){k+=x.meal.mac.k;p+=x.meal.mac.p;}}
+    else if(e.st==='altro'||key==='x'){const s=xSum(e.it);k+=s.k;p+=s.p;}
+  }
+  return {k:k,p:p};
+}
+function eatenKcal(d){
+  const e=dayEaten(d);if(e) return e.k||null;
+  const x=S.days[d];if(!x)return null;
+  const s=(x.P||0)+(x.C||0)+(x.G||0)+(x.Fr||0)+(x.V||0);if(!s)return null;
+  return (x.P||0)*PORTIONS.P.kcal+(x.C||0)*PORTIONS.C.kcal+(x.G||0)*PORTIONS.G.kcal+(x.Fr||0)*PORTIONS.Fr.kcal+(x.V||0)*PORTIONS.V.kcal+120;
+}
+function weekAlc(d){
+  const st=addD(d,-dowIdx(d));let s=0;
+  for(let i=0;i<7;i++){const dd=addD(st,i), x=S.days[dd];if(x)s+=x.alc||0;
+    const L=S.meals&&S.meals[dd];if(L)for(const k in L){for(const [id,m] of (L[k].it||[])){if(XF[id]&&XF[id].alc)s+=1;}}}
+  return s;
+}
+function followMenu(){
+  const d=today(), L=mealsOf(d);
+  for(const x of dayMenu(d).meals) if(!L[x.s.i]) L[x.s.i]={st:'menu'};
+  save();render();toast('Tutti i pasti segnati come da menù ✓');
+}
+function setMeal(d,i,st){
+  const L=mealsOf(d);
+  if(st==='none') delete L[i]; else L[i]={st:st};
+  save();closeSheet();render();
+  if(st==='menu') toast(pickBy(['Segnato ✓ Bravo Mat!','Come da menù ✓ Perfetto.','✓ Uno in più nella colonna dei buoni pasti.'],Date.now()%3));
+}
+function openMeal(d,i){
+  const x=dayMenu(d).meals.find(z=>z.s.i===i);if(!x)return;
+  const e=mealsOf(d)[i];
+  let h='<div class="row between"><h2 style="margin:0">'+esc(MEAL_NAME[x.s.m])+' · '+x.s.h+'</h2><button class="btn sm ghost" onclick="closeSheet()">✕</button></div>';
+  h+='<div class="card" style="margin-top:12px"><div class="small mute">Nel menù di oggi</div><div style="font-weight:800;font-size:16px;margin:2px 0 6px">'+esc(x.meal.r.n)+'</div><div class="small mute">'+esc(x.meal.items.map(itemTxt).join(' · '))+' · '+Math.round(x.meal.mac.k)+' kcal</div></div>';
+  h+='<button class="btn gold block" onclick="setMeal(\''+d+'\','+i+',\'menu\')">✓ Mangiato come da menù</button>';
+  h+='<button class="btn block" style="margin-top:8px" onclick="openPicker(\''+d+'\','+i+')">🍽️ Ho mangiato altro</button>';
+  h+='<div class="row" style="margin-top:8px;flex-wrap:nowrap"><button class="btn ghost" style="flex:1" onclick="setMeal(\''+d+'\','+i+',\'skip\')">Saltato</button>'+(e?'<button class="btn ghost" style="flex:1" onclick="setMeal(\''+d+'\','+i+',\'none\')">Togli il segno</button>':'')+'</div>';
+  h+='<button class="btn ghost block" style="margin-top:8px" onclick="closeSheet();menuDay=\''+d+'\';cTab=\'menu\';go(\'cibo\')">📖 Vedi la ricetta</button>';
+  $('sheetIn').innerHTML=h;$('sheet').classList.add('on');
+}
+function openPicker(d,i){
+  const e=mealsOf(d)[i];
+  mDraft={d:d,i:i,items:(e&&e.it)?e.it.map(a=>a.slice()):[],q:''};
+  drawPicker();
+}
+function drawPicker(){
+  const D=mDraft;if(!D)return;
+  const title=D.i==='x'?'Aggiungi uno sfizio o un extra':'Cosa hai mangiato?';
+  let h='<div class="row between"><h2 style="margin:0">'+title+'</h2><button class="btn sm ghost" onclick="mDraft=null;closeSheet()">✕</button></div>';
+  h+='<input id="xq" placeholder="Cerca: muffin, pizza, birra…" value="'+esc(D.q)+'" oninput="mDraft.q=this.value;drawPickerList()" style="width:100%;margin:12px 0 4px">';
+  h+='<div id="xsel">'+pickerSel()+'</div><div id="xlist">'+pickerList()+'</div>';
+  $('sheetIn').innerHTML=h;$('sheet').classList.add('on');
+}
+function drawPickerList(){const l=$('xlist');if(l)l.innerHTML=pickerList();}
+function pickerSel(){
+  const D=mDraft;if(!D.items.length) return '<p class="small mute" style="margin:6px 2px">Tocca + sugli alimenti qui sotto. Puoi sceglierne più di uno.</p>';
+  const s=xSum(D.items);
+  let h='<div class="card" style="padding:12px;margin:8px 0"><div class="small" style="font-weight:800;margin-bottom:6px">Hai scelto</div>';
+  D.items.forEach((a,j)=>{const f=XF[a[0]];h+='<div class="row between" style="padding:6px 0;border-bottom:1px solid var(--soft);flex-wrap:nowrap"><span style="flex:1;font-size:14px">'+esc(f.n)+'<br><span class="small mute">'+Math.round(f.k*a[1])+' kcal</span></span><select onchange="mDraft.items['+j+'][1]=Number(this.value);drawPicker()" style="padding:6px 8px;font-size:13px">'+SIZES.map(z=>'<option value="'+z[0]+'"'+(z[0]===a[1]?' selected':'')+'>'+z[1]+'</option>').join('')+'</select><button class="btn sm ghost" onclick="mDraft.items.splice('+j+',1);drawPicker()">✕</button></div>';});
+  h+='<div class="row between" style="margin-top:8px"><b>'+Math.round(s.k)+' kcal · '+Math.round(s.p)+' g proteine</b><button class="btn gold" onclick="saveDraft()">Salva</button></div></div>';
+  return h;
+}
+function pickerList(){
+  const q=gNorm(mDraft.q||'');let h='';
+  for(const [c,lab] of XCATS){
+    const fs=XFOODS.filter(f=>f.c===c&&(!q||gNorm(f.n).indexOf(q)>=0));
+    if(!fs.length)continue;
+    h+='<div class="sec-title">'+lab+'</div><div class="card" style="padding:4px 12px">';
+    for(const f of fs) h+='<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--soft);flex-wrap:nowrap"><span style="flex:1;font-size:14.5px">'+esc(f.n)+' <span class="small mute">· '+f.k+' kcal</span></span><button class="btn sm gold" style="min-width:44px" onclick="mDraft.items.push([\''+f.id+'\',1]);drawPicker()">+</button></div>';
+    h+='</div>';
+  }
+  return h||'<p class="small mute">Nessun alimento trovato. Scegli quello più simile: l\'importante è avere un\'idea, non la precisione.</p>';
+}
+function saveDraft(){
+  const D=mDraft;if(!D||!D.items.length){toast('Scegli almeno un alimento');return;}
+  const L=mealsOf(D.d);
+  if(D.i==='x') L.x={st:'extra',it:D.items};
+  else L[D.i]={st:'altro',it:D.items};
+  const s=xSum(D.items), isMain=D.i!=='x'&&(function(){const x=slotsOf(D.d).find(z=>z.i===D.i);return x&&['colazione','pranzo','cena'].indexOf(x.m)>=0;})();
+  mDraft=null;save();closeSheet();render();
+  const tot=eatenKcal(D.d)||0, tg=targets(D.d).kcal;
+  let msg='Segnato! ';
+  if(isMain&&s.p<15) msg+='Mancano proteine: aggiungi uno yogurt greco o della bresaola nel prossimo spuntino. 💛';
+  else if(tot>tg) msg+='Oggi sei un po\' sopra: nessun dramma, domani si torna al menù. 💪';
+  else msg+='Ci sta tutto nella giornata. 👍';
+  gToast(msg);
+}
+function gToast(msg){const t=$('toast');t.innerHTML='<span style="display:flex;gap:8px;align-items:center">'+guillySVG(26)+'<span>'+esc(msg)+'</span></span>';t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),4200);}
+function mealStatus(d,x){
+  const e=mealsOf(d)[x.s.i];
+  if(!e) return '<span class="ms ms-todo">Segna</span>';
+  if(e.st==='menu') return '<span class="ms ms-ok">✓ Menù</span>';
+  if(e.st==='skip') return '<span class="ms ms-skip">Saltato</span>';
+  const s=xSum(e.it);return '<span class="ms ms-alt">'+Math.round(s.k)+' kcal</span>';
+}
+function mealsCard(d){
+  const dm=dayMenu(d), L=mealsOf(d), e=dayEaten(d)||{k:0,p:0}, t=targets(d);
+  let h='<div class="card"><div class="row between"><h2 style="margin:0">🍽️ Pasti di oggi</h2><span class="small mute">'+Math.round(e.k)+' / '+t.kcal+' kcal</span></div>';
+  h+='<div class="bar" style="margin:10px 0 4px"><i style="width:'+clamp(e.k/t.kcal*100,0,100)+'%;background:'+(e.k>t.kcal*1.05?'var(--bad)':'var(--navy)')+'"></i></div>';
+  h+='<div class="small mute" style="margin-bottom:6px">Proteine '+Math.round(e.p)+' / '+t.prot+' g</div>';
+  for(const x of dm.meals){
+    const st=L[x.s.i], sub=st&&st.st==='altro'?st.it.map(a=>XF[a[0]]?XF[a[0]].n:'').join(', '):x.meal.r.n;
+    h+='<div class="meal-row" onclick="openMeal(\''+d+'\','+x.s.i+')"><div class="mt">'+x.s.h+'</div><div style="flex:1"><div class="mn">'+esc(MEAL_NAME[x.s.m])+'</div><div class="md">'+esc(sub)+'</div></div>'+mealStatus(d,x)+'</div>';
+  }
+  const xe=L.x;
+  if(xe&&xe.it&&xe.it.length){const s=xSum(xe.it);h+='<div class="meal-row" onclick="openPicker(\''+d+'\',\'x\')"><div class="mt">+</div><div style="flex:1"><div class="mn">Extra</div><div class="md">'+esc(xe.it.map(a=>XF[a[0]]?XF[a[0]].n:'').join(', '))+'</div></div><span class="ms ms-alt">'+Math.round(s.k)+' kcal</span></div>';}
+  const allDone=dm.meals.every(x=>L[x.s.i]);
+  h+='<div class="row" style="margin-top:10px;flex-wrap:nowrap">'+(allDone?'':'<button class="btn ghost" style="flex:1" onclick="followMenu()">✓ Tutto come da menù</button>')+'<button class="btn ghost" style="flex:1" onclick="openPicker(\''+d+'\',\'x\')">+ Sfizio o extra</button></div>';
+  return h+'</div>';
+}
+
 // ============ RENDER ============
-const TAB_TITLE = {oggi:'',piano:'Piano',all:'Allenamento',cibo:'Alimentazione',guilly:'Guilly',io:'Io'};
+const TAB_TITLE = {oggi:'',piano:'Allenamento',all:'Allenamento',cibo:'Cibo',prog:'Progressi',guilly:'Guilly',set:'Impostazioni'};
 const NAV_ACTIVE = {all:'piano'};
-let ioTab = 'prog';
 function render(){
   const act=NAV_ACTIVE[curTab]||curTab;
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===act));
@@ -1413,74 +1551,72 @@ function render(){
   if(curTab==='oggi') v.innerHTML=vOggi();
   else if(curTab==='piano') v.innerHTML=vPiano();
   else if(curTab==='all') v.innerHTML=vAll();
-  else if(curTab==='cibo'){v.innerHTML=vCibo();if(cTab==='graf')drawCibo();}
+  else if(curTab==='cibo') v.innerHTML=vCibo();
+  else if(curTab==='prog'){v.innerHTML=vProg();drawChart();drawEaten();}
   else if(curTab==='guilly') v.innerHTML=vGuilly();
-  else {v.innerHTML=vIo();if(ioTab==='prog')drawChart();}
-}
-function ring(pct,val,unit,label,col){
-  const r=34,c=2*Math.PI*r,p=clamp(pct,0,1);
-  return '<div><div class="ring"><svg viewBox="0 0 84 84"><circle cx="42" cy="42" r="'+r+'" fill="none" stroke="#edf0f6" stroke-width="9"/><circle cx="42" cy="42" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(c*p).toFixed(1)+' '+c.toFixed(1)+'"/></svg><div class="rv">'+val+'<small>'+unit+'</small></div></div><div class="ring-l">'+label+'</div></div>';
+  else v.innerHTML=vSetAll();
 }
 function shiftChip(sh){return '<span class="chip t-'+sh.t+'">'+esc(sh.code==='-'?T_NAME[sh.t]:sh.code)+'</span>';}
 function vOggi(){
   const d=today(), sh=shiftOf(d), p=planOf(d), t=targets(d), dd=day(d), ph=phase(d), h0=new Date().getHours();
   const saluto=h0<12?'Buongiorno':h0<18?'Buon pomeriggio':'Buonasera';
   let h='<section class="hero"><div class="hero-top"><div><div class="hero-date">'+fmtLong(d)+'</div><div class="hero-title">'+saluto+', Mat</div></div>'+shiftChip(sh)+'</div>';
-  h+='<div class="hero-shift">🚑 '+esc(sh.lab)+(sh.ora?' · '+esc(sh.ora):'')+(sh.override?' · modificato':'')+'</div>';
-  if(sh.rep&&sh.rep.length) h+='<div class="hero-shift">📟 Reperibile '+sh.rep.join(', ')+'</div>';
-  h+='<div class="g-bubble" onclick="go(\'guilly\')">'+guillySVG(56)+'<div class="g-say"><b>Guilly</b>'+esc(guillyHome())+'</div></div></section>';
+  h+='<div class="hero-shift">🚑 '+esc(sh.lab)+(sh.ora?' · '+esc(sh.ora):'')+(sh.rep&&sh.rep.length?' · 📟 reperibile '+sh.rep.join(', '):'')+'</div>';
+  h+='<div class="g-bubble" onclick="go(\'guilly\')">'+guillySVG(52)+'<div class="g-say"><b>Guilly</b>'+esc(guillyHome())+'</div></div></section>';
 
-  if(ph.key==='pre') h+='<div class="alert info">🏔️ Il percorso parte <b>'+fmtLong(S.settings.start)+'</b>. Intanto esplora l\'app e chiedi a Guilly quello che vuoi.</div>';
-  if(!S.settings.medOk) h+='<div class="alert warn"><b>Controllo medico</b>: pressione, ECG ed esami del sangue (glicemia, colesterolo, tiroide). Puoi iniziare subito con camminate e carichi leggeri. <button class="btn sm ghost" style="margin-top:6px" onclick="setMed()">Fatto ✓</button></div>';
-  const hasData=Object.keys(S.weights).length+Object.keys(S.logs).length>0||Object.values(S.days).some(x=>x.P||x.C||x.G||x.Fr||x.V||x.water||x.walk||x.steps||x.alc);
-  if(hasData&&(!S.lastBackup||diffD(S.lastBackup,d)>=7)) h+='<div class="alert warn"><b>Backup</b>: i dati sono solo su questo telefono. '+(S.lastBackup?'Ultimo: '+fmtShort(S.lastBackup)+'.':'Non hai ancora fatto un backup.')+' <button class="btn sm" style="margin-top:6px" onclick="exportData()">Fai backup ora</button></div>';
-  if(t.maint) h+='<div class="alert ok"><b>Settimana di mantenimento</b>: +2 porzioni di carboidrati al giorno per ricaricare. L\'allenamento resta uguale.'+wb('fase_mant')+'</div>';
+  // un solo avviso alla volta
+  const hasData=Object.keys(S.weights).length+Object.keys(S.logs).length>0||Object.keys(S.meals||{}).length>0;
+  if(ph.key==='pre') h+='<div class="alert info">🏔️ Il percorso parte <b>'+fmtLong(S.settings.start)+'</b>. Intanto curiosa pure nell\'app.</div>';
+  else if(hasData&&(!S.lastBackup||diffD(S.lastBackup,d)>=7)) h+='<div class="alert warn row between" style="flex-wrap:nowrap"><span><b>Backup</b>: i dati sono solo su questo telefono.</span><button class="btn sm" onclick="exportData()">Salva</button></div>';
+  else if(!S.settings.medOk) h+='<div class="alert warn row between" style="flex-wrap:nowrap"><span><b>Ricorda</b>: visita dal medico con pressione, ECG ed esami.</span><button class="btn sm ghost" onclick="setMed()">Fatto</button></div>';
+  else if(t.maint) h+='<div class="alert ok"><b>Settimana di mantenimento</b>: +2 porzioni di carboidrati al giorno.</div>';
 
-  // piano di oggi
+  // allenamento
   if(p.kind!=='pre'){
     const tt=TRAIN_TIME[sh.t]||'';
-    h+='<div class="card"><div class="plan"><div class="plan-ic '+p.kind+'">'+(p.kind==='forza'?p.ses:p.kind==='attivo'?'🚶':'💤')+'</div><div style="flex:1"><div class="plan-k">'+(p.kind==='forza'?'Allenamento di forza':p.kind==='attivo'?'Giorno attivo':'Recupero')+wb('plan_'+p.kind)+'</div><div class="plan-t">'+esc(p.kind==='forza'?SESSIONS[p.ses].name:p.kind==='attivo'?'Camminata veloce + mobilità':'Riposo e passeggiata breve')+'</div><div class="plan-m">'+(tt?'⏰ '+tt+' · ':'')+(p.kind==='forza'?'circa 60 minuti':p.kind==='attivo'?(weekNo(d)<=1?'35–45′':'40–60′')+' + 10′ mobilità':'nessun allenamento')+'</div></div></div>';
-    if(p.kind==='forza'){const done=S.logs[d]&&S.logs[d].done;h+='<button class="btn '+(done?'ok':'gold')+' block" style="margin-top:12px" onclick="openW(\''+d+'\')">'+(done?'Completato ✓ · rivedi':'Inizia allenamento ▶')+'</button>';}
-    else if(p.kind==='attivo') h+='<div class="row" style="margin-top:12px;flex-wrap:nowrap"><button class="btn '+(dd.walk?'ok':'gold')+'" style="flex:1" onclick="toggleWalk(\''+d+'\')">'+(dd.walk?'Fatto ✓':'Segna come fatto')+'</button><button class="btn ghost" onclick="wDate=\'\';go(\'all\')">Dettagli</button></div>';
+    h+='<div class="card"><div class="plan"><div class="plan-ic '+p.kind+'">'+(p.kind==='forza'?p.ses:p.kind==='attivo'?'🚶':'💤')+'</div><div style="flex:1"><div class="plan-k">'+(p.kind==='forza'?'Allenamento di forza':p.kind==='attivo'?'Giorno attivo':'Recupero')+(tt?' · ⏰ '+tt:'')+'</div><div class="plan-t">'+esc(p.kind==='forza'?SESSIONS[p.ses].name:p.kind==='attivo'?'Camminata veloce + mobilità':'Riposo')+'</div></div></div>';
+    if(p.kind==='forza'){const done=S.logs[d]&&S.logs[d].done;h+='<button class="btn '+(done?'ok':'gold')+' block" style="margin-top:12px" onclick="openW(\''+d+'\')">'+(done?'Fatto ✓':'Inizia ▶')+'</button>';}
+    else if(p.kind==='attivo') h+='<button class="btn '+(dd.walk?'ok':'gold')+' block" style="margin-top:12px" onclick="toggleWalk(\''+d+'\')">'+(dd.walk?'Fatto ✓':'Segna come fatto')+'</button>';
     h+='</div>';
+    h+=mealsCard(d);
   }
 
-  // nutrizione
-  const eaten=eatenKcal(d)||0, P=dd.P||0;
-  h+='<div class="card"><div class="row between"><h2 style="margin:0">Nutrizione oggi'+wb('porzioni')+'</h2><a href="#" class="small" style="font-weight:700" onclick="cTab=\'menu\';menuDay=\''+(d<S.settings.start?S.settings.start:d)+'\';go(\'cibo\');return false">Menù ›</a></div>';
-  h+='<div class="rings" style="margin-top:12px">'+ring(eaten/t.kcal,eaten?Math.round(eaten):'0','kcal','di '+t.kcal,eaten>t.kcal*1.05?'#e5484d':'#0f1f3d')+ring(P/t.por.P,P+'/'+t.por.P,'porz.','Proteine','#2563eb')+ring((dd.water||0)/6,((dd.water||0)/2).toString().replace('.',',')+' L','di 3 L','Acqua','#06b6d4')+'</div>';
-  h+='<div class="ctr">';
-  for(const k of ['P','C','G','Fr','V']){
-    const tg=t.por[k], v=dd[k]||0, cls=v>tg&&(k==='C'||k==='G')?'over':(v>=tg?'full':'');
-    h+='<div class="c '+cls+'"><button onclick="inc(\''+k+'\',-1)" aria-label="meno">−</button><div style="text-align:center"><div class="lab">'+PORTIONS[k].lab+'</div><b>'+v+'</b><span class="tg">/'+tg+'</span></div><button onclick="inc(\''+k+'\',1)" aria-label="più">+</button></div>';
-  }
-  h+='<div class="c '+(dd.water>=6?'full':'')+'"><button onclick="inc(\'water\',-1)">−</button><div style="text-align:center"><div class="lab">Acqua ½ L</div><b>'+(dd.water||0)+'</b><span class="tg">/6</span></div><button onclick="inc(\'water\',1)">+</button></div>';
-  const wa=weekAlc(d);
-  h+='<div class="c '+(wa>2?'over':'')+'"><button onclick="inc(\'alc\',-1)">−</button><div style="text-align:center"><div class="lab">Alcol sett.</div><b>'+wa+'</b><span class="tg">/2</span></div><button onclick="inc(\'alc\',1)">+</button></div>';
-  h+='</div><div class="row small mute" style="margin-top:8px">Perché: acqua'+wb('acqua')+' alcol'+wb('alcol')+' bibite'+wb('bibite')+'</div>'+(ph.key!=='pre'?'<button class="btn ghost block" style="margin-top:10px" onclick="followMenu()">✓ Ho seguito il menù di oggi</button>':'');
-  h+='<div class="row" style="margin-top:12px"><label class="small" style="font-weight:700" for="steps">👟 Passi</label><input id="steps" type="number" inputmode="numeric" value="'+esc(dd.steps)+'" placeholder="0" onchange="setSteps(this.value)" style="width:110px"><span class="mute small">obiettivo '+(weekNo(d)<=1?'8.000':'10.000')+'</span>'+wb('passi')+'</div></div>';
-
-  // peso
-  const qw=S.weights[d];
-  h+='<div class="card"><h2>⚖️ Peso di stamattina'+wb('peso')+'</h2><div class="row"><input id="qw" type="number" step="0.1" inputmode="decimal" placeholder="kg" value="'+(qw!=null?qw:'')+'"><button class="btn" onclick="saveQW()">Salva</button><span class="mute small">a digiuno, dopo il bagno</span></div></div>';
-
-  // tabella di marcia
-  h+='<div class="card"><details open style="background:none;padding:0;margin:0"><summary style="font-size:18px;font-weight:800">🗓️ Tabella di marcia'+wb('turni')+'</summary><div style="margin-top:8px">'+timelineHTML(d)+'</div></details></div>';
+  // acqua e peso
+  const qw=S.weights[d], wl=((dd.water||0)/2).toString().replace('.',',');
+  h+='<div class="mini2"><div class="card"><div class="mini-l">💧 Acqua</div><div class="row between" style="flex-wrap:nowrap;margin-top:6px"><button class="rb" onclick="inc(\'water\',-1)">−</button><b class="mini-v">'+wl+' L</b><button class="rb" onclick="inc(\'water\',1)">+</button></div><div class="bar" style="margin-top:8px"><i style="width:'+clamp((dd.water||0)/6*100,0,100)+'%;background:#06b6d4"></i></div><div class="small mute" style="margin-top:4px">obiettivo 3 L</div></div>';
+  h+='<div class="card"><div class="mini-l">⚖️ Peso di oggi</div><input id="qw" type="number" step="0.1" inputmode="decimal" placeholder="kg" value="'+(qw!=null?qw:'')+'" style="width:100%;margin-top:6px"><button class="btn sm '+(qw!=null?'ghost':'')+'" style="margin-top:6px;width:100%" onclick="saveQW()">'+(qw!=null?'Aggiorna':'Salva')+'</button></div></div>';
   return h;
 }
 function vPiano(){
-  let h=vCal();
-  h+=nextList();
+  let h=nextList()+vCal();
   h+='<div class="card"><h2>🏋️ Sessione extra</h2><p class="small mute" style="margin-top:0">Solo se ti senti riposato: la rotazione riparte dalla sessione che scegli.</p><div class="row">'+ROT.map(s=>'<button class="btn ghost sm" onclick="pickSes(\''+s+'\')">'+s+' · '+esc(SESSIONS[s].name)+'</button>').join('')+'</div></div>';
   return h;
 }
-function vIo(){
-  const tabs=[['prog','📈 Progressi'],['set','⚙️ Impostazioni'],['why','📚 Perché']];
-  let h='<div class="seg">'+tabs.map(t=>'<button class="'+(ioTab===t[0]?'on':'')+'" onclick="ioTab=\''+t[0]+'\';render()">'+t[1]+'</button>').join('')+'</div>';
-  if(ioTab==='prog') h+=vProg();
-  else if(ioTab==='set') h+=vSet();
-  else h+=vWhyLib();
+function vCibo(){
+  if(cTab!=='menu'&&cTab!=='spesa') cTab='menu';
+  let h='<div class="seg"><button class="'+(cTab==='menu'?'on':'')+'" onclick="cTab=\'menu\';render()">📋 Menù e ricette</button><button class="'+(cTab==='spesa'?'on':'')+'" onclick="cTab=\'spesa\';render()">🛒 Lista della spesa</button></div>';
+  if(cTab==='spesa') return h+vSpesa();
+  h+=vMenu();
+  h+='<div class="card"><details style="background:none;padding:0;margin:0"><summary style="font-size:16px;font-weight:800">⭐ Le regole d\'oro</summary><ul class="clean small" style="margin-top:10px">'+
+    '<li><b>Metà piatto di verdure</b>, pasta al massimo 100 g a pasto.'+wb('piatto')+'</li>'+
+    '<li><b>Proteine a ogni pasto</b>: saziano e salvano i muscoli.'+wb('proteine')+'</li>'+
+    '<li><b>Bibite</b>: solo acqua o zero.'+wb('bibite')+'</li>'+
+    '<li><b>Alcol</b>: massimo 2 drink a settimana.'+wb('alcol')+'</li>'+
+    '<li><b>1 pasto libero a settimana</b>, porzione normale, poi si riparte.'+wb('pasto_libero')+'</li>'+
+    '<li><b>In servizio</b>: spuntino portato da casa.'+wb('servizio')+'</li>'+
+    '<li><b>Notte</b>: cena alle 19, poi solo uno spuntino leggero.'+wb('notte_cibo')+'</li>'+
+    '</ul></details></div>';
   return h;
+}
+function vSetAll(){
+  let h='<div class="card"><div class="row" style="flex-wrap:nowrap"><button class="btn gold" style="flex:1" onclick="openNotif()">🔔 Notifiche di Guilly</button><button class="btn ghost" style="flex:1" onclick="openLib()">📚 Il perché</button></div></div>';
+  return h+vSet().replace(/<div class="card" style="background:#fffbea[\s\S]*?Apri le spiegazioni<\/button><\/div>/,'');
+}
+function drawEaten(){
+  const td=today(), t=targets(td);
+  const lab=[],st=[];
+  for(let i=13;i>=0;i--){const d=addD(td,-i);lab.push(String(pd(d).getDate()));const k=eatenKcal(d);st.push(k?[k]:null);}
+  drawBars('chE',lab,st,(i,v)=>v>t.kcal*1.05?'#e5484d':'#12a150',t.kcal);
 }
 
 function timelineHTML(d){
@@ -1514,12 +1650,6 @@ function timelineHTML(d){
 function porTxt(p){
   const map={P:'prot',C:'carbo',G:'grassi',Fr:'frutta',V:'verdure'};
   return Object.keys(p).map(k=>p[k]+' '+map[k]).join(' · ');
-}
-
-function weekAlc(d){
-  const st=addD(d,-dowIdx(d));let s=0;
-  for(let i=0;i<7;i++){const x=S.days[addD(st,i)];if(x)s+=x.alc||0;}
-  return s;
 }
 
 function vCal(){
@@ -1695,6 +1825,7 @@ function vProg(){
   h+='<p class="small mute">Peso: ogni mattina, oppure almeno 3–4 volte a settimana, a digiuno dopo il bagno. Conta la media settimanale, non il singolo giorno. Vita: una volta a settimana, sempre di lunedì mattina. Foto: ogni 4 settimane, stessa luce e stessa posizione.</p></div>';
   h+='<div class="card"><h2>Andamento</h2><div class="kpis"><div class="k"><div class="v">'+(w0!=null?w0.toFixed(1):'—')+'</div><div class="l">partenza</div></div><div class="k"><div class="v">'+(an.a0?an.a0.a.toFixed(1):'—')+'</div><div class="l">media 7 gg</div></div><div class="k"><div class="v">'+(w0!=null&&an.a0?((an.a0.a-w0>0?'+':'')+(an.a0.a-w0).toFixed(1)):'—')+'</div><div class="l">kg totali</div></div></div>';
   h+='<canvas id="chart" width="680" height="220" style="margin-top:10px"></canvas><div class="small mute">Punti: pesate singole · linea: media mobile di 7 giorni</div></div>';
+  h+='<div class="card"><h2>🍽️ Calorie mangiate · 14 giorni</h2><canvas id="chE" style="height:190px"></canvas><div class="small mute">Dai pasti segnati in Oggi · verde entro l\'obiettivo, rosso sopra · linea rossa: obiettivo '+t.kcal+' kcal</div></div>';
   h+='<div class="card"><h2>Controllo settimanale'+wb('controllo')+'</h2><div class="alert '+an.cls+'" style="margin:0">'+esc(an.msg)+'</div>';
   if(an.r1!=null) h+='<p class="small mute">Ultima settimana: '+(an.r1>=0?'−':'+')+Math.abs(an.r1).toFixed(2)+'%'+(an.r2!=null?(' · settimana precedente: '+(an.r2>=0?'−':'+')+Math.abs(an.r2).toFixed(2)+'%'):'')+'</p>';
   if(an.act) h+='<button class="btn gold" style="margin-top:8px" onclick="applyAdj('+an.act+')">Applica '+(an.act>0?'+':'')+an.act+' kcal</button>';
@@ -1761,7 +1892,7 @@ function vSet(){
 }
 
 // ============ AZIONI ============
-function go(t){const al={prog:['io','prog'],set:['io','set'],cal:['piano']};if(al[t]){if(al[t][1])ioTab=al[t][1];t=al[t][0];}curTab=t;render();window.scrollTo(0,0);if(t==='guilly')setTimeout(scrollChat,60);}
+function go(t){const al={io:'prog',cal:'piano'};if(al[t])t=al[t];curTab=t;render();window.scrollTo(0,0);if(t==='guilly')setTimeout(scrollChat,60);}
 function inc(k,n){const dd=day(today());dd[k]=Math.max(0,(dd[k]||0)+n);save();render();}
 function setSteps(v){day(today()).steps=v;save();}
 function toggleWalk(d){const dd=day(d);dd.walk=!dd.walk;save();render();if(dd.walk)toast('Giorno attivo registrato 👍');}
@@ -1842,7 +1973,6 @@ function init(){
   });
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
   try{if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js');}catch(e){}
-  $('hdrG').innerHTML=guillySVG(36,'wink');
   render();
   const last=S.shiftsUpdated?new Date(S.shiftsUpdated).getTime():0;
   if(Date.now()-last>6*3600*1000) refreshShifts(false);
