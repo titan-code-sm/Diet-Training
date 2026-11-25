@@ -1,0 +1,33 @@
+name: Guilly notifiche
+
+on:
+  schedule:
+    # ogni ora dalle 4 alle 22 circa (ora italiana); lo script decide se c'è qualcosa da dire
+    - cron: '5 3-21 * * *'
+  workflow_dispatch:
+    inputs:
+      test:
+        description: 'Invia subito una notifica di prova'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  guilly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Installa dipendenze
+        working-directory: guilly
+        run: npm install --no-save --no-audit --no-fund web-push@3.6.7 xlsx@0.18.5
+      - name: Guilly scrive
+        env:
+          GUILLY_PUSH: ${{ secrets.GUILLY_PUSH }}
+          TEST: ${{ github.event_name == 'workflow_dispatch' && inputs.test }}
+        run: node guilly/push.mjs

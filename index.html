@@ -12,128 +12,204 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{
-  --navy:#0f1f3d;--navy2:#18305a;--gold:#f2b705;--bg:#f2f4f8;--card:#fff;--ink:#172033;--mute:#6b7487;--line:#e3e7ef;
-  --ok:#16a34a;--warn:#d97706;--bad:#dc2626;
-  --mat:#2563eb;--pom:#ea7a0c;--notte:#6d28d9;--smonto:#8b7fb8;--libero:#15803d;--doppio:#b91c1c;--nd:#9aa3b5;
+  --navy:#0f1f3d;--navy2:#1e3a8a;--gold:#f2b705;--gold2:#ffd65a;--bg:#f3f5fa;--card:#ffffff;--ink:#0e1726;--mute:#667085;--line:#e6e9f1;--soft:#f1f4f9;
+  --ok:#12a150;--warn:#d97706;--bad:#e5484d;
+  --mat:#2563eb;--pom:#f07b10;--notte:#6d28d9;--smonto:#8b7fb8;--libero:#12a150;--doppio:#e5484d;--nd:#9aa3b5;
+  --r:20px;--sh:0 1px 2px rgba(16,24,40,.04),0 6px 20px rgba(16,24,40,.06);
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Barlow,system-ui,sans-serif;font-size:16px}
-h1,h2,h3,.cond{font-family:"Barlow Condensed",Barlow,sans-serif;letter-spacing:.2px}
-header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;box-shadow:0 2px 10px rgba(0,0,0,.2)}
-header h1{margin:0;font-size:24px;font-weight:700}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;min-width:0}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.cond{font-family:"Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:-.2px}
+a{color:var(--navy2)}
+button{font-family:inherit}
+/* ---------- barra superiore ---------- */
+header{position:sticky;top:0;z-index:20;background:rgba(243,245,250,.86);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);padding:calc(10px + env(safe-area-inset-top)) 18px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(230,233,241,.7)}
+header h1{margin:0;font-size:21px;font-weight:800;color:var(--navy)}
 header h1 span{color:var(--gold)}
-header .sub{font-size:13px;opacity:.85;margin-top:2px}
-main{padding:14px 14px calc(96px + env(safe-area-inset-bottom));max-width:720px;margin:0 auto}
-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--navy);display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
-nav button{flex:1;background:none;border:0;color:#aeb9d1;font:600 11px Barlow,sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
-nav button .i{font-size:20px;line-height:1}
-nav button.on{color:var(--gold)}
-.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,31,61,.08);border:1px solid var(--line)}
-.card h2{margin:0 0 8px;font-size:21px}
-.card h3{margin:12px 0 6px;font-size:17px}
+header .sub{font-size:12.5px;color:var(--mute);font-weight:600;margin-top:1px}
+.hdr-btn{width:42px;height:42px;border-radius:50%;border:0;background:#fff;box-shadow:var(--sh);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+main{padding:14px 14px calc(108px + env(safe-area-inset-bottom));max-width:720px;margin:0 auto}
+/* ---------- navigazione ---------- */
+nav{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:30;background:rgba(15,31,61,.96);backdrop-filter:blur(12px);border-radius:24px;display:flex;justify-content:space-around;padding:7px 6px;box-shadow:0 10px 30px rgba(15,31,61,.35);max-width:560px;margin:0 auto}
+nav button{flex:1;background:none;border:0;color:#9fb0d0;font:700 10.5px "Plus Jakarta Sans",sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;cursor:pointer;border-radius:18px;transition:background .2s,color .2s}
+nav button svg{width:23px;height:23px}
+nav button.on{color:var(--navy);background:var(--gold)}
+nav button .gdot{width:25px;height:25px;border-radius:50%;overflow:hidden;display:block}
+/* ---------- card ---------- */
+.card{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--sh);border:1px solid rgba(230,233,241,.8)}
+.card h2{margin:0 0 10px;font-size:18px;font-weight:800}
+.card h3{margin:14px 0 6px;font-size:15.5px;font-weight:800}
 .mute{color:var(--mute);font-size:14px}
 .small{font-size:13px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .between{justify-content:space-between}
-.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 10px;font:600 13px Barlow,sans-serif;color:#fff;background:var(--nd)}
-.chip.lite{background:#eef1f7;color:var(--ink)}
+.sec-title{font-size:13px;font-weight:800;color:var(--mute);text-transform:none;margin:20px 4px 8px;letter-spacing:.2px}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:4px 11px;font:700 12.5px "Plus Jakarta Sans",sans-serif;color:#fff;background:var(--nd);white-space:nowrap}
+.chip.lite{background:var(--soft);color:var(--ink)}
 .chip.gold{background:var(--gold);color:var(--navy)}
 .t-mat{background:var(--mat)}.t-pom{background:var(--pom)}.t-notte{background:var(--notte)}.t-smonto{background:var(--smonto)}.t-libero{background:var(--libero)}.t-doppio{background:var(--doppio)}.t-nd{background:var(--nd)}
-.btn{border:0;border-radius:10px;padding:10px 14px;font:600 15px Barlow,sans-serif;background:var(--navy);color:#fff;cursor:pointer}
+.btn{border:0;border-radius:14px;padding:12px 16px;font:700 15px "Plus Jakarta Sans",sans-serif;background:var(--navy);color:#fff;cursor:pointer;min-height:44px;transition:transform .1s}
+.btn:active{transform:scale(.97)}
 .btn.gold{background:var(--gold);color:var(--navy)}
-.btn.ghost{background:#eef1f7;color:var(--ink)}
+.btn.ghost{background:var(--soft);color:var(--ink)}
 .btn.ok{background:var(--ok)}
-.btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:11px;min-height:36px}
 .btn.block{width:100%}
 .btn:disabled{opacity:.5}
-input,select{font:500 16px Barlow,sans-serif;border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:#fff;color:var(--ink);min-width:0}
-input[type=number]{width:84px}
-label.f{display:block;margin:8px 0 3px;font-size:13px;color:var(--mute);font-weight:600}
-.tl{list-style:none;margin:0;padding:0}
-.tl li{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
-.tl li:last-child{border-bottom:0}
-.tl .h{font:700 15px "Barlow Condensed";min-width:46px;color:var(--navy2)}
-.tl .k{font-size:18px;width:22px;text-align:center}
-.tl .b{flex:1}
-.tl .por{font-size:12px;color:var(--mute)}
-.ctr{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
-.ctr .c{border:1px solid var(--line);border-radius:12px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:6px}
-.ctr .c b{font:700 20px "Barlow Condensed"}
-.ctr .c .lab{font-size:13px;font-weight:600}
+input,select,textarea{font:500 16px "Plus Jakarta Sans",sans-serif;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;color:var(--ink);min-width:0;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--navy2)}
+input[type=number]{width:92px}
+label.f{display:block;margin:10px 0 4px;font-size:13px;color:var(--mute);font-weight:700}
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:18px 18px 16px;margin-bottom:14px;color:#fff;background:radial-gradient(120% 90% at 100% 0%,#3b5bdb 0%,rgba(59,91,219,0) 55%),linear-gradient(145deg,#0f1f3d 0%,#172b5c 60%,#1e3a8a 100%);box-shadow:0 14px 34px rgba(15,31,61,.28)}
+.hero:after{content:"";position:absolute;right:-60px;bottom:-70px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(242,183,5,.35),rgba(242,183,5,0) 70%)}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:relative;z-index:1}
+.hero-date{font-size:13px;opacity:.75;font-weight:600;text-transform:capitalize}
+.hero-title{font-size:26px;font-weight:800;margin-top:2px}
+.hero-shift{font-size:14px;opacity:.9;margin-top:4px;position:relative;z-index:1}
+.g-bubble{position:relative;z-index:1;display:flex;gap:10px;align-items:flex-end;margin-top:14px;cursor:pointer}
+.g-say{background:#fff;color:var(--ink);border-radius:18px 18px 18px 6px;padding:10px 12px;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.18);flex:1}
+.g-say b{display:block;font-size:12px;color:#b07d00;margin-bottom:2px}
+/* ---------- piano di oggi ---------- */
+.plan{display:flex;gap:14px;align-items:center}
+.plan-ic{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;font:800 24px "Plus Jakarta Sans",system-ui,sans-serif;flex:none}
+.plan-ic.forza{background:#fff5d1;color:#8a6500}
+.plan-ic.attivo{background:#e3f7ec;color:var(--ok)}
+.plan-ic.recupero,.plan-ic.pre{background:var(--soft);color:var(--mute)}
+.plan-k{font-size:12.5px;font-weight:700;color:var(--mute)}
+.plan-t{font-size:17px;font-weight:800;line-height:1.25}
+.plan-m{font-size:13px;color:var(--mute);margin-top:2px}
+/* ---------- anelli ---------- */
+.rings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center;margin:4px 0 8px}
+.ring{position:relative;width:84px;height:84px;margin:0 auto}
+.ring svg{width:84px;height:84px;transform:rotate(-90deg)}
+.ring .rv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:16px;line-height:1.1}
+.ring .rv small{font-size:10.5px;color:var(--mute);font-weight:700}
+.ring-l{font-size:12.5px;font-weight:700;margin-top:4px}
+/* ---------- contatori ---------- */
+.ctr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ctr .c{border-radius:16px;padding:8px;display:flex;align-items:center;justify-content:space-between;gap:4px;background:var(--soft)}
+.ctr .c b{font:800 19px "Plus Jakarta Sans",system-ui,sans-serif}
+.ctr .c .lab{font-size:12px;font-weight:700;color:var(--mute)}
 .ctr .c .tg{font-size:12px;color:var(--mute)}
-.ctr .c button{width:32px;height:32px;border-radius:50%;border:0;background:#eef1f7;font:700 18px Barlow;cursor:pointer;color:var(--navy)}
-.ctr .c.full{border-color:var(--ok);background:#f0fbf3}
-.ctr .c.over{border-color:var(--bad);background:#fdf2f2}
-.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cal .dh{text-align:center;font:700 12px Barlow;color:var(--mute);padding:4px 0}
-.cal .d{background:#fff;border:1px solid var(--line);border-radius:9px;min-height:64px;padding:4px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;position:relative}
+.ctr .c button{width:36px;height:36px;border-radius:12px;border:0;background:#fff;font:800 18px "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.ctr .c.full{background:#e3f7ec}
+.ctr .c.over{background:#fde8e8}
+/* ---------- timeline ---------- */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--soft)}
+.tl li:last-child{border-bottom:0}
+.tl .h{font:800 14px "Plus Jakarta Sans",system-ui,sans-serif;min-width:46px;color:var(--navy2)}
+.tl .k{font-size:18px;width:24px;text-align:center}
+.tl .b{flex:1;font-size:14.5px}
+.tl .por{font-size:12.5px;color:var(--mute);margin-top:2px}
+/* ---------- calendario ---------- */
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.cal .dh{text-align:center;font:700 11.5px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--mute);padding:4px 0}
+.cal .d{background:var(--soft);border-radius:13px;min-height:66px;padding:5px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;position:relative}
 .cal .d.out{visibility:hidden}
-.cal .d.today{outline:2px solid var(--gold)}
-.cal .d .n{font:700 13px "Barlow Condensed";align-self:flex-start}
-.cal .d .sc{font:700 11px Barlow;color:#fff;border-radius:5px;padding:1px 4px;min-width:26px;text-align:center}
-.cal .d .pl{font-size:13px;font-weight:700}
-.cal .d .done{position:absolute;top:2px;right:4px;color:var(--ok);font-weight:700;font-size:12px}
-.ex{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px}
-.ex .t{font:700 18px "Barlow Condensed"}
-.ex .meta{font-size:13px;color:var(--mute);margin:2px 0 6px}
-.ex .cue{font-size:13px;background:#f6f8fb;border-radius:8px;padding:6px 8px;margin:6px 0}
-.sets{display:grid;grid-template-columns:34px 1fr 1fr;gap:6px;align-items:center}
-.sets .sn{font:700 14px "Barlow Condensed";color:var(--mute)}
+.cal .d.today{background:#fff5d1;outline:2px solid var(--gold)}
+.cal .d .n{font:800 12.5px "Plus Jakarta Sans",system-ui,sans-serif;align-self:flex-start;padding-left:3px}
+.cal .d .sc{font:700 10.5px "Plus Jakarta Sans",system-ui,sans-serif;color:#fff;border-radius:7px;padding:1px 5px;min-width:26px;text-align:center}
+.cal .d .pl{font-size:13px;font-weight:800}
+.cal .d .done{position:absolute;top:3px;right:5px;color:var(--ok);font-weight:800;font-size:12px}
+/* ---------- allenamento ---------- */
+.ex{border-radius:16px;padding:12px;margin-bottom:10px;background:var(--soft)}
+.ex .t{font:800 16px "Plus Jakarta Sans",system-ui,sans-serif}
+.ex .meta{font-size:13px;color:var(--mute);margin:3px 0 6px;font-weight:600}
+.ex .cue{font-size:13px;background:#fff;border-radius:12px;padding:8px 10px;margin:6px 0}
+.sets{display:grid;grid-template-columns:34px minmax(0,1fr) minmax(0,1fr);gap:6px;align-items:center}
+.sets .sn{font:800 13px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--mute)}
 .sets input{width:100%}
-.sugg{font-size:13px;font-weight:600;margin-top:6px}
+.sugg{font-size:13px;font-weight:700;margin-top:6px}
 .sugg.up{color:var(--ok)}
-.alert{border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:12px}
-.alert.warn{background:#fff7e6;border:1px solid #f5d38a}
-.alert.info{background:#eef4ff;border:1px solid #c7d7fb}
-.alert.ok{background:#effaf2;border:1px solid #b6e3c3}
-.alert.bad{background:#fdf0f0;border:1px solid #f1c0c0}
+/* ---------- avvisi ---------- */
+.alert{border-radius:16px;padding:12px 14px;font-size:14px;margin-bottom:12px}
+.alert.warn{background:#fff6e0;border:1px solid #f8deA0}
+.alert.info{background:#eaf1ff;border:1px solid #cddcff}
+.alert.ok{background:#e7f8ee;border:1px solid #bfe9cf}
+.alert.bad{background:#fdeeee;border:1px solid #f6c9c9}
 table.pt{width:100%;border-collapse:collapse;font-size:14px}
-table.pt td,table.pt th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.big{font:700 34px "Barlow Condensed";line-height:1}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
-.kpis .k{background:#f6f8fb;border-radius:10px;padding:8px 4px}
-.kpis .k .v{font:700 22px "Barlow Condensed"}
-.kpis .k .l{font-size:12px;color:var(--mute)}
-#sheet{position:fixed;inset:0;background:rgba(10,18,36,.55);z-index:50;display:none;align-items:flex-end;justify-content:center}
+table.pt td,table.pt th{padding:8px 4px;border-bottom:1px solid var(--soft);text-align:left;vertical-align:top}
+.big{font:800 34px "Plus Jakarta Sans",system-ui,sans-serif;line-height:1}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
+.kpis .k{background:var(--soft);border-radius:14px;padding:10px 4px}
+.kpis .k .v{font:800 20px "Plus Jakarta Sans",system-ui,sans-serif}
+.kpis .k .l{font-size:12px;color:var(--mute);font-weight:600}
+.seg{display:flex;background:#e9edf5;border-radius:14px;padding:4px;gap:4px;margin-bottom:14px}
+.seg button{flex:1;border:0;background:none;border-radius:11px;padding:9px 6px;font:700 13.5px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--mute);cursor:pointer}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.pill-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;scrollbar-width:none}
+.pill-tabs::-webkit-scrollbar{display:none}
+.pill-tabs button{white-space:nowrap;flex:none}
+details{border-radius:14px;padding:10px 12px;margin-top:8px;background:var(--soft)}
+details summary{font-weight:700;cursor:pointer}
+ul.clean{margin:6px 0;padding-left:18px}
+ul.clean li{margin:4px 0}
+.whyb{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;min-width:22px;border-radius:50%;border:0;background:#fff1c2;color:#8a6500;font:800 12px "Plus Jakarta Sans",sans-serif;cursor:pointer;padding:0;margin-left:6px;vertical-align:middle;line-height:1}
+.food-i{cursor:pointer;text-decoration:underline dotted #c9a23a;text-underline-offset:3px}
+/* ---------- fogli e overlay ---------- */
+#sheet{position:fixed;inset:0;background:rgba(10,18,36,.5);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
 #sheet.on{display:flex}
-#sheet .in{background:var(--bg);width:100%;max-width:720px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 14px calc(20px + env(safe-area-inset-bottom))}
-#timer{position:fixed;inset:0;z-index:60;background:rgba(15,31,61,.96);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#sheet .in{background:var(--bg);width:100%;max-width:720px;max-height:88vh;overflow:auto;border-radius:26px 26px 0 0;padding:10px 14px calc(22px + env(safe-area-inset-bottom));animation:up .22s ease-out}
+#sheet .in:before{content:"";display:block;width:40px;height:5px;border-radius:3px;background:#cfd5e1;margin:0 auto 10px}
+@keyframes up{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}
+#timer{position:fixed;inset:0;z-index:60;background:radial-gradient(circle at 50% 30%,#1e3a8a,#0f1f3d 70%);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
 #timer.on{display:flex}
-#timer .tv{font:700 96px "Barlow Condensed"}
-#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;z-index:70;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%}
+#timer .tv{font:800 92px "Plus Jakarta Sans",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+#toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 16px;border-radius:14px;font-size:14px;font-weight:600;z-index:70;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 #toast.on{opacity:1}
 canvas{width:100%;height:220px;display:block}
-.pill-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:8px}
-.pill-tabs button{white-space:nowrap}
-details{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:8px;background:#fff}
-details summary{font-weight:600;cursor:pointer}
-ul.clean{margin:6px 0;padding-left:18px}
-ul.clean li{margin:3px 0}
-.whyb{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;min-width:22px;border-radius:50%;border:1.5px solid var(--gold);background:#fffbea;color:#8a6500;font:700 13px Barlow,sans-serif;cursor:pointer;padding:0;margin-left:6px;vertical-align:middle;line-height:1}
-.food-i{cursor:pointer;text-decoration:underline dotted #b9a35a;text-underline-offset:3px}
+/* ---------- Guilly chat ---------- */
+.g-head{display:flex;gap:12px;align-items:center}
+.g-head .nm{font-size:20px;font-weight:800}
+.g-head .st{font-size:12.5px;color:var(--ok);font-weight:700}
+.chat{display:flex;flex-direction:column;gap:8px;padding-bottom:6px}
+.msg{max-width:86%;padding:10px 13px;border-radius:18px;font-size:14.5px;line-height:1.45;word-wrap:break-word;animation:pop .18s ease-out}
+.msg.g{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:6px;box-shadow:var(--sh)}
+.msg.u{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:6px}
+.msg ul{margin:6px 0;padding-left:18px}
+.msg .act{margin-top:8px}
+@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+.g-row{display:flex;gap:8px;align-items:flex-end}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font:700 13px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.chat-in{position:sticky;bottom:calc(86px + env(safe-area-inset-bottom));background:var(--bg);padding:8px 0 4px;z-index:5}
+.chat-in form{display:flex;gap:8px}
+.chat-in input{flex:1;border-radius:999px;padding:12px 16px;background:#fff}
+.chat-in .send{width:48px;height:48px;border-radius:50%;border:0;background:var(--gold);color:var(--navy);font-size:20px;cursor:pointer;flex:none}
+.typing{display:inline-flex;gap:4px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#b6bfd0;animation:bl 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,100%{opacity:.3}50%{opacity:1}}
+textarea.code{width:100%;height:120px;font:12px ui-monospace,monospace}
+.steps-n{counter-reset:s;list-style:none;padding:0;margin:8px 0}
+.steps-n li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:14px}
+.steps-n li:before{content:counter(s);position:absolute;left:0;top:5px;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font:800 12px "Plus Jakarta Sans",system-ui,sans-serif;display:flex;align-items:center;justify-content:center}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <header>
-  <h1>Diet <span>&amp; Training</span></h1>
-  <div class="sub" id="hdrSub">—</div>
+  <div><h1 id="hdrTitle">Diet <span>&amp; Training</span></h1><div class="sub" id="hdrSub">—</div></div>
+  <button class="hdr-btn" id="hdrG" onclick="go('guilly')" aria-label="Parla con Guilly"></button>
 </header>
 <main id="view"></main>
 <nav id="nav">
-  <button data-t="oggi"><span class="i">☀️</span>Oggi</button>
-  <button data-t="cal"><span class="i">📅</span>Calendario</button>
-  <button data-t="all"><span class="i">🏋️</span>Allenamento</button>
-  <button data-t="cibo"><span class="i">🥗</span>Cibo</button>
-  <button data-t="prog"><span class="i">📈</span>Progressi</button>
-  <button data-t="set"><span class="i">⚙️</span>Altro</button>
+  <button data-t="oggi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Oggi</button>
+  <button data-t="piano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Piano</button>
+  <button data-t="cibo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a3 3 0 0 0 6 0V3M10 3v18M18 3c-1.8 1.5-2.6 3.6-2.6 6.2V14H18v7"/></svg>Cibo</button>
+  <button data-t="guilly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2M9 9.5h.01M15 9.5h.01"/></svg>Guilly</button>
+  <button data-t="io"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>Io</button>
 </nav>
 <div id="sheet"><div class="in" id="sheetIn"></div></div>
 <div id="timer">
-  <div class="cond" style="font-size:20px;opacity:.8">Recupero</div>
+  <div style="font-size:18px;font-weight:700;opacity:.8">Recupero</div>
   <div class="tv" id="tv">0:00</div>
   <div class="row"><button class="btn ghost" id="tPlus">+15 s</button><button class="btn gold" id="tStop">Fine recupero</button></div>
   <div class="small" style="opacity:.7;max-width:280px;text-align:center">Respira con calma: espira durante lo sforzo, non trattenere il fiato.</div>
@@ -449,7 +525,7 @@ function $(id){return document.getElementById(id);}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2600);}
 
 // ============ STORAGE ============
-function blank(){return {v:2,settings:Object.assign({},DEF_SETTINGS),shifts:null,shiftsUpdated:'',overrides:{},weights:{},waist:{},logs:{},days:{},menu:{},shop:{},lastBackup:''};}
+function blank(){return {v:2,settings:Object.assign({},DEF_SETTINGS),shifts:null,shiftsUpdated:'',overrides:{},weights:{},waist:{},logs:{},days:{},menu:{},shop:{},lastBackup:'',chat:[],push:null};}
 function load(){
   let o=null;
   try{o=JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(e){o=null;}
@@ -457,6 +533,7 @@ function load(){
   if(!o||typeof o!=='object') return b;
   o.settings=Object.assign({},DEF_SETTINGS,o.settings||{});
   for(const k of ['overrides','weights','waist','logs','days','menu','shop']) if(!o[k]||typeof o[k]!=='object') o[k]={};
+  if(!Array.isArray(o.chat)) o.chat=[];
   if(!o.v||o.v<2){if(o.settings.start==='2026-11-25')o.settings.start='2026-11-26';o.v=2;}
   return o;
 }
@@ -818,6 +895,288 @@ function vWhyLib(){
   return h+'</ul></div>';
 }
 
+// ============ GUILLY ============
+const G_MOTIV = [
+  'Non serve essere perfetti, serve essere costanti. Anche oggi conta.',
+  'Ogni camminata è un mattone. Tra tre mesi ti girerai e vedrai un muro intero.',
+  'Turno pesante? Allora oggi vinci con il minimo: 20 minuti di camminata e cena come da menù.',
+  'Non contare i giorni saltati. Conta quelli che fai.',
+  'La pancia non è arrivata in un giorno e non se ne andrà in un giorno. Ma sta già cambiando.',
+  'Una pizza non rovina niente. Rovina mollare dopo la pizza.',
+  'Peso salito stamattina? È acqua. Guarda la media, non il numero.',
+  'Forza non è sollevare tanto: è tornare ad allenarti anche quando non ne hai voglia.',
+  'Tra 12 settimane ringrazierai il Mat di oggi.',
+  'Fai la prima serie, poi decidi se smettere. Quasi sempre farai anche la seconda.',
+  'Bevi un bicchiere d\'acqua adesso. Sì, proprio adesso.',
+  'Ogni giorno passi la vita a soccorrere gli altri. Questi 60 minuti sono per te.',
+  'Il segreto non è la motivazione, è l\'abitudine. La motivazione va e viene, l\'abitudine resta.',
+  'Piccoli passi, ogni giorno. È così che si scalano anche le montagne.',
+  'Oggi non devi fare tutto. Devi fare la prossima cosa giusta.',
+  'Il corpo cambia prima dentro che fuori: fiato, sonno, energia. Poi arriva lo specchio.',
+  'Non devi correre. Devi solo non fermarti.',
+  'Un giorno storto non è una settimana storta. Al prossimo pasto si riparte.',
+  'Stai costruendo un Mat più forte, non solo più leggero.',
+  'Quando pensi di mollare, ricordati perché hai iniziato.'
+];
+const G_TIPS = [
+  'Le proteine sono il nutriente che sazia di più: mettine in ogni pasto e la fame cala.',
+  'Una lattina di bibita zuccherata sono circa 140 kcal che non saziano. Passa alla versione zero.',
+  'Le patate lessate o al forno sono tra i cibi più sazianti in assoluto, a parità di calorie.',
+  'Un cucchiaio d\'olio sono 90 kcal: misurarlo è il trucco più semplice per non sforare.',
+  'Dormire poco aumenta la fame di dolci. Il riposino prima della notte è parte del piano.',
+  'Gli addominali non bruciano la pancia: è il deficit calorico che la fa scendere. Il core serve per la postura.',
+  'Pesati sempre alla stessa ora, a digiuno: conta la media della settimana.',
+  'La camminata veloce a 95 kg consuma 300–400 kcal all\'ora senza stressare le ginocchia.',
+  'Espira mentre spingi: trattenere il fiato fa salire la pressione.',
+  'Metà piatto di verdure riempie lo stomaco con pochissime calorie.',
+  'L\'alcol blocca l\'uso dei grassi finché non è smaltito: massimo 2 drink a settimana.',
+  'Porta lo spuntino da casa: al distributore ti aspettano 300 kcal di snack.',
+  'Il tonno al naturale invece che sott\'olio fa risparmiare circa 100 kcal a scatoletta.',
+  'Lo yogurt greco 0% ha il doppio delle proteine di uno yogurt normale.',
+  'Passi conta: il movimento quotidiano può valere più dell\'allenamento stesso.'
+];
+function guillySVG(sz,mood){
+  const eyes=mood==='wink'
+    ?'<path d="M31 59 q6 -5 12 0" stroke="#0f1f3d" stroke-width="3.2" fill="none" stroke-linecap="round"/><ellipse cx="63" cy="58" rx="7" ry="8" fill="#fff"/><circle cx="64" cy="59" r="4" fill="#0f1f3d"/><circle cx="65.5" cy="57.5" r="1.3" fill="#fff"/>'
+    :'<ellipse cx="37" cy="58" rx="7" ry="8" fill="#fff"/><circle cx="38" cy="59" r="4" fill="#0f1f3d"/><circle cx="39.5" cy="57.5" r="1.3" fill="#fff"/><ellipse cx="63" cy="58" rx="7" ry="8" fill="#fff"/><circle cx="64" cy="59" r="4" fill="#0f1f3d"/><circle cx="65.5" cy="57.5" r="1.3" fill="#fff"/>';
+  return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 100 100" aria-label="Guilly" style="flex:none;display:block"><defs><radialGradient id="ggb" cx="38%" cy="32%" r="72%"><stop offset="0" stop-color="#ffe58f"/><stop offset=".55" stop-color="#ffc23a"/><stop offset="1" stop-color="#f29a00"/></radialGradient></defs>'
+    +'<ellipse cx="50" cy="95" rx="25" ry="3.5" fill="rgba(0,0,0,.14)"/>'
+    +'<path d="M16 70 q-9 -6 -6 -16" stroke="#f29a00" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="10" cy="52" r="6" fill="#ffc23a"/>'
+    +'<circle cx="50" cy="54" r="38" fill="url(#ggb)"/>'
+    +'<path d="M13 43 Q50 20 87 43 L86 52 Q50 31 14 52 Z" fill="#e63946"/><path d="M14 47.5 Q50 26 86 47.5" stroke="#fff" stroke-width="2.2" fill="none" opacity=".85"/>'
+    +eyes
+    +'<path d="M38 73 Q50 84 62 73" stroke="#0f1f3d" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    +'<circle cx="27" cy="70" r="4.5" fill="#ff7b7b" opacity=".55"/><circle cx="73" cy="70" r="4.5" fill="#ff7b7b" opacity=".55"/>'
+    +'<path d="M84 70 q9 -6 6 -16" stroke="#f29a00" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="90" cy="52" r="6" fill="#ffc23a"/>'
+    +'</svg>';
+}
+function pickBy(arr,seed){return arr[((seed%arr.length)+arr.length)%arr.length];}
+function guillyHome(){
+  const d=today(), h=new Date().getHours(), sh=shiftOf(d), p=planOf(d), n=dayN(d);
+  if(d<S.settings.start){const k=diffD(d,S.settings.start);return k===1?'Domani si parte, Mat! Stasera prepara la bilancia: domattina prima pesata a digiuno. Io sono pronto, tu?':'Il percorso parte '+fmtLong(S.settings.start)+'. Goditi questi giorni: poi si fa sul serio, insieme.';}
+  if(h<11&&S.weights[d]==null) return 'Buongiorno Mat! Prima cosa: bilancia, a digiuno e dopo il bagno. Segna il peso qui sotto, poi pensiamo al resto.';
+  const log=S.logs[d];
+  if(p.kind==='forza'&&log&&log.done) return 'Allenamento '+p.ses+' completato! 💪 Oggi hai già vinto. Nel prossimo pasto metti le proteine e goditi il recupero.';
+  if(p.kind==='attivo'&&S.days[d]&&S.days[d].walk) return 'Camminata fatta, ottimo! I giorni attivi sono quelli che fanno la differenza nel lungo periodo.';
+  if(sh.t==='notte') return 'Stanotte sei di turno: riposino nel primo pomeriggio, camminata alle 16 e cena completa alle 19. Lo spuntino della notte portalo da casa.';
+  if(sh.t==='smonto') return 'Smonto: prima dormi, poi una camminata tranquilla. Niente pesi oggi, sono ordini del coach. 😉';
+  if(sh.t==='doppio') return 'Giornata doppia, Mat. Oggi l\'unico obiettivo è mangiare bene e riposare quando puoi.';
+  if(p.kind==='forza'){const tt=TRAIN_TIME[sh.t]||'';const late=tt&&h>=parseInt(tt,10)+2;return late?'Non hai ancora registrato l\'allenamento '+p.ses+'. Hai ancora tempo? Anche una sessione più corta vale.':'Oggi tocca all\'allenamento '+p.ses+' ('+SESSIONS[p.ses].name+')'+(tt?' alle '+tt:'')+'. '+pickBy(G_MOTIV,n);}
+  if(p.kind==='attivo') return 'Oggi giorno attivo: camminata veloce e 10 minuti di mobilità. '+pickBy(G_MOTIV,n+3);
+  return pickBy(G_MOTIV,n);
+}
+// ---------- chat ----------
+function gNorm(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9àèéìòù\s]/g,' ').replace(/\s+/g,' ').trim();}
+function gHas(t,arr){return arr.some(k=>t.indexOf(k)>=0);}
+function gList(arr){return '<ul>'+arr.map(x=>'<li>'+x+'</li>').join('')+'</ul>';}
+function gAct(label,js){return '<div class="act"><button class="btn sm gold" onclick="'+js+'">'+label+'</button></div>';}
+function gPlanDay(d,label){
+  const sh=shiftOf(d), p=planOf(d);
+  if(d<S.settings.start) return label+' il percorso non è ancora partito: si comincia '+fmtLong(S.settings.start)+'.';
+  let t='<b>'+label+'</b> sei di <b>'+esc(sh.lab.toLowerCase())+'</b>'+(sh.ora?' ('+esc(sh.ora)+')':'')+'.<br>';
+  if(p.kind==='forza') t+='In programma: <b>allenamento '+p.ses+' · '+esc(SESSIONS[p.ses].name)+'</b>'+(TRAIN_TIME[sh.t]?' alle '+TRAIN_TIME[sh.t]:'')+'.';
+  else if(p.kind==='attivo') t+='In programma: <b>giorno attivo</b>, camminata veloce'+(TRAIN_TIME[sh.t]?' alle '+TRAIN_TIME[sh.t]:'')+' più mobilità.';
+  else t+='In programma: <b>recupero</b>.';
+  const dm=dayMenu(d);
+  t+='<br>A tavola:'+gList(dm.meals.map(x=>esc(x.s.h)+' · '+esc(x.meal.r.n)));
+  return t;
+}
+const G_STOP=['meglio','anche','surgelati','sgocciolato','peso','filetti','filetto','bianco','magro','magri','mista','sgusciati','brick','extravergine','oliva','integrale','integrali','tagliata','fesa','petto','naturale','perlato','champignon','sgusciate'];
+function findFood(t){
+  for(const k in FOODS){const ws=gNorm(FOODS[k].n).split(' ').filter(w=>w.length>3&&G_STOP.indexOf(w)<0);
+    for(const w of ws){const stem=w.length>=6?w.slice(0,w.length-1):w;if(new RegExp('\\b'+stem).test(t))return k;}}
+  return null;
+}
+const G_WHYKEYS=[[['pasto libero','sgarro','pizza'],'pasto_libero'],[['alcol','birra','vino','drink'],'alcol'],[['bibit'],'bibite'],[['corsa','correre','camminat','camminare'],'camminata'],[['rotazione','giorni fissi'],'rotazione'],[['rir','cedimento'],'rir'],[['prima settimana','morbid'],'fase_adatt'],[['scarico'],'fase_scarico'],[['mantenimento'],'fase_mant'],[['riscaldament'],'riscaldamento'],[['espir','respir','fiato'],'respiro'],[['addominal','pancia'],'pancia'],[['passi'],'passi'],[['sonno','dormire'],'sonno'],[['2150','calorie','kcal','deficit'],'deficit'],[['proteine'],'proteine'],[['carboidrati'],'carboidrati'],[['grassi','olio misurato'],'grassi'],[['porzioni'],'porzioni'],[['verdure','piatto'],'piatto'],[['acqua','3 litri'],'acqua'],[['media','pesarsi','pesarmi'],'peso'],[['vita','circonferenza'],'vita'],[['correggere','controllo','2 settimane'],'controllo'],[['turni'],'turni'],[['pesi'],'pesi'],[['spuntino da casa','servizio'],'servizio'],[['di notte','notte'],'notte_cibo'],[['fame'],'fame_serale'],[['colazione'],'meal_colazione'],[['pranzo'],'meal_pranzo'],[['cena'],'meal_cena']];
+function whySearch(t,min){
+  const words=t.split(' ').filter(w=>w.length>3&&['perche','come','cosa','sono','della','delle','degli','quando','quanto','posso','devo','fare','meglio','questo','questa','serve','servono'].indexOf(w)<0);
+  let best=null,bs=0;
+  for(const k in WHY){const ti=gNorm(WHY[k].t), txt=ti+' '+gNorm(WHY[k].x.join(' '));let sc=0;
+    for(const w of words){const st=w.slice(0,Math.max(4,w.length-2));if(txt.indexOf(st)>=0)sc+=ti.indexOf(st)>=0?2:1;}
+    if(sc>bs){bs=sc;best=k;}}
+  return (best&&bs>=min)?best:null;
+}
+function gWhy(k){return '<b>'+esc(WHY[k].t)+'</b><br>'+WHY[k].x.map(esc).join('<br><br>');}
+function gReply(raw){
+  const t=gNorm(raw), td=today();
+  const R=(html,chips)=>({html:html,chips:chips||[]});
+  if(!t) return R('Scrivimi pure, sono qui!');
+  // 1. sicurezza prima di tutto
+  if(gHas(t,['dolore al petto','male al petto','dolore toracico','fitta al petto','oppressione','capogir','svengo','svenire','palpitaz','senza fiato','non respiro','affanno forte'])) return R('<b>Fermati subito</b> e non allenarti oggi. Dolore o oppressione al petto, capogiri, palpitazioni o un affanno sproporzionato vanno valutati da un medico. Se il dolore è forte, non passa dopo qualche minuto di riposo o si irradia a braccio, mandibola o schiena, chiama subito il 118: lo sai meglio di me. 🙏');
+  // 2. conversazione
+  if(gHas(t,['ciao','buongiorno','buonasera','salve','hey','ehi'])&&t.split(' ').length<=4) return R('Ciao Mat! 👋 '+guillyHome(),['Cosa faccio oggi?','Cosa mangio a cena?','Motivami']);
+  if(gHas(t,['grazie','grande guilly','sei forte','bravo'])) return R(pickBy(['Figurati! Il lavoro vero lo fai tu, io faccio solo il tifo. 📣','Sempre qui. Ora vai e spacca! 💪','Grazie a te, Mat. Squadra che vince non si cambia.'],Date.now()%3));
+  if(gHas(t,['chi sei','come ti chiami','cosa sai fare','aiuto','help','cosa puoi'])) return R('Sono <b>Guilly</b>, il tuo coach tascabile! 🟡 Conosco i tuoi turni, il piano di allenamento, il menù, i tuoi progressi e il perché di ogni scelta. Funziono senza internet e senza intelligenze artificiali esterne: rispondo con quello che c\'è nell\'app. Prova a chiedermi:',['Cosa faccio oggi?','E domani?','Posso mangiare la pizza?','Perché camminare e non correre?','Come vanno i progressi?','Ho fame']);
+  if(gHas(t,['notific'])) return R('Posso mandarti notifiche anche a telefono bloccato: promemoria per allenamento, pasti e pesata, più qualche consiglio. Le attivi dal pulsante 🔔 qui in alto.',['Attiva notifiche']);
+  // 3. domande "perché"
+  if(gHas(t,['perche oggi','perche questo'])){const p=planOf(td);if(WHY['plan_'+p.kind])return R(gWhy('plan_'+p.kind));}
+  if(gHas(t,['perche','a cosa serve','serve davvero','come mai'])){
+    const topic=G_WHYKEYS.find(x=>gHas(t,x[0]));if(topic)return R(gWhy(topic[1]));
+    const fk=findFood(t);if(fk&&!gHas(t,['proteine','grassi','carboidrati']))return R('<b>'+esc(FOODS[fk].n)+'</b>: '+esc(FOOD_WHY[fk]||''));
+    const k=whySearch(t,1);if(k)return R(gWhy(k));
+  }
+  // 4. umore
+  if(gHas(t,['sgarrato','mangiato troppo','abbuffat','ho esagerato'])) return R('Succede a tutti, davvero. Un pasto non cancella giorni di lavoro: è la media della settimana che conta. Niente digiuni o punizioni: al prossimo pasto torni al menù, bevi acqua, e domani si riparte. Io sono ancora qui. 💛');
+  if(gHas(t,['stanco','stanchezza','sfinito','distrutto'])) return R('Se sei stanco morto dopo il turno, oggi fai la <b>versione minima</b>: 20 minuti di camminata e cena come da menù. Vale lo stesso. Se invece sei solo pigro... fai il riscaldamento e la prima serie, poi decidi. 😉<br><br>'+pickBy(G_MOTIV,Date.now()));
+  if(gHas(t,['non ho voglia','senza voglia','motivazione','mollare','pigro','demotivat','non ce la','triste','giu di morale','scoraggiat','fallito','non funziona'])) return R(pickBy(G_MOTIV,Date.now())+'<br><br>E ricordati da dove sei partito: hai scelto tu di iniziare, e stai già facendo cose che prima non facevi. 💛');
+  if(gHas(t,['motivami','motivam','carica','spronami','dimmi qualcosa'])) return R(pickBy(G_MOTIV,Date.now())+' 💪');
+  // 5. cibo
+  if(gHas(t,['pizza','gelato','dolce','dolci','cioccolat','sgarro','hamburger','kebab','patatine','fritto','fritti','nutella','torta','brioche','cornetto','merendin','mcdonald','sushi'])) return R('Si può, e senza sensi di colpa: hai <b>1 pasto libero a settimana</b>. Regole semplici:'+gList(['una porzione normale, non a volontà','al posto di un pasto, non in aggiunta','il giorno dopo si riparte normale, senza digiuni per compensare'])+'Pizza? Margherita o con verdure, acqua o bibita zero. Se è fuori programma, prendila al posto della cena e domani torna al menù. 🍕',['Perché un pasto libero?','Cosa mangio a cena?']);
+  if(gHas(t,['birra','vino','alcol','spritz','cocktail','aperitivo','amaro','grappa'])){const wa=weekAlc(td);return R('Massimo <b>2 drink a settimana</b>, e ognuno conta come 1 porzione di carboidrati. Questa settimana ne hai segnati <b>'+wa+'</b>. '+(wa>=2?'Sei già al limite: oggi meglio acqua frizzante con limone. 🍋':'Se bevi, mangia prima e alterna con l\'acqua.'),['Perché limitare l\'alcol?']);}
+  if(gHas(t,['fame','affamato','mangerei'])) return R('Fame? Ecco cosa funziona:'+gList(['bevi un bicchiere d\'acqua e aspetta 10 minuti','se è vera fame: yogurt greco o skyr con un frutto (1 proteina + 1 frutta)','verdure crude a volontà (carote, finocchi, pomodorini)','la sera: tisana e denti lavati = cucina chiusa'])+'Se hai fame tutti i giorni a fine giornata, dimmelo: magari ti servono più proteine a pranzo.',['Perché le proteine saziano?','Cosa mangio a cena?']);
+  // 6. giorni
+  if(gHas(t,['dopodomani'])) return R(gPlanDay(addD(td,2),'Dopodomani'));
+  if(gHas(t,['domani'])) return R(gPlanDay(addD(td,1),'Domani'),['Lista della spesa','Cosa faccio oggi?']);
+  if(gHas(t,['settimana prossima','questa settimana','prossimi giorni'])){
+    return R('<b>Prossimi 7 giorni</b>:'+gList([...Array(7)].map((_,i)=>{const d=addD(td,i+1),p=planOf(d),sh=shiftOf(d);return DOW[dowIdx(d)]+' '+pd(d).getDate()+' · '+esc(sh.code==='-'?T_NAME[sh.t]:sh.code)+' · '+esc(p.kind==='forza'?'Forza '+p.ses:p.kind==='attivo'?'Camminata':p.kind==='recupero'?'Recupero':'—');}))+gAct('Apri il piano',"go('piano')"));
+  }
+  // 7. pasti
+  const mealKey=gHas(t,['colazione'])?'colazione':gHas(t,['pranzo'])?'pranzo':gHas(t,['cena','stasera mangio'])?'cena':gHas(t,['spuntino','merenda'])?'spuntino':null;
+  if(mealKey||gHas(t,['cosa mangio','menu','ricett','mangiare oggi','cucino','cosa cucino'])){
+    const d=td<S.settings.start?S.settings.start:td, dm=dayMenu(d);
+    const ms=mealKey?dm.meals.filter(x=>x.s.m===mealKey||(mealKey==='spuntino'&&(x.s.m==='servizio'||x.s.m==='notte'))):dm.meals;
+    if(!ms.length) return R('Oggi quel pasto non è previsto dal tuo turno. Ecco il menù del giorno:'+gList(dm.meals.map(x=>esc(x.s.h)+' · '+esc(x.meal.r.n))));
+    let h=(d!==td?'(Il piano parte '+fmtShort(d)+', ti mostro quel giorno.)<br>':'');
+    for(const x of ms) h+='<b>'+esc(x.s.h)+' · '+esc(MEAL_NAME[x.s.m])+'</b>: '+esc(x.meal.r.n)+gList(x.meal.items.map(it=>esc(itemTxt(it))))+(mealKey?'<span class="mute small">'+esc(x.meal.r.s)+'</span><br>':'');
+    return R(h+gAct('Apri menù e ricette',"menuDay='"+d+"';cTab='menu';go('cibo')"),['Non mi va, cambiamo?','Lista della spesa']);
+  }
+  if(gHas(t,['non mi va','cambia','cambiamo','altro piatto'])) return R('Nessun problema: in <b>Cibo → Menù e ricette</b> tocca <b>↻ Cambia ricetta</b> sul pasto che non ti va. Le grammature si ricalcolano e la lista della spesa si aggiorna da sola.'+gAct('Apri il menù',"cTab='menu';go('cibo')"));
+  if(gHas(t,['spesa','supermercato','comprare','compro'])){const ws=weekStartOf(td<S.settings.start?S.settings.start:td), sl=shopList(ws);return R('Per la settimana dal '+fmtShort(ws)+' ti servono <b>'+Object.keys(sl.tot).length+' prodotti</b>, calcolati sui tuoi turni e sulle ricette. Consiglio: due spese, lunedì e giovedì, per avere pesce e carne freschi.'+gAct('Apri la lista',"shopWeek='"+ws+"';cTab='spesa';go('cibo')"));}
+  if(gHas(t,['sostitu','al posto','invece','non ho','alternativ','finito','finita'])){
+    const f=findFood(t);
+    if(f){const role=f==='patate'?'C':['olio','noci','mandorle','avocado','parmigiano'].indexOf(f)>=0?'G':['tonno','whey'].indexOf(f)>=0?'P':f==='passata'?'V':{carne:'P',pesce:'P',latticini:'P',cereali:'C',verdura:'V',frutta:'Fr'}[FOODS[f].cat];
+      if(role) return R('Al posto di <b>'+esc(FOODS[f].n.toLowerCase())+'</b> usa una porzione equivalente di '+esc(PORTIONS[role].lab.toLowerCase())+':'+gList(PORTIONS[role].list.map(esc)));}
+    return R('Le sostituzioni si fanno a porzioni: stessa categoria, stessa porzione. Proteine con proteine, carboidrati con carboidrati. Dimmi l\'alimento, per esempio: "cosa uso al posto del merluzzo?"',['Al posto del pollo?','Al posto della pasta?']);
+  }
+  // 8. allenamento
+  if(gHas(t,['dolore','male a','fa male','mi fa male','infortun','strappo','contrattur','indolenzit','doms'])) return R('Se un esercizio ti fa male (dolore acuto, non la normale fatica muscolare), <b>saltalo oggi</b> e fai il resto della sessione. Un dolore che dura più di qualche giorno o che peggiora va fatto vedere. L\'indolenzimento muscolare 1–2 giorni dopo (DOMS) è normale, soprattutto all\'inizio, e passa muovendoti.',['Perché la prima settimana morbida?']);
+  const exK={panca:'panca',squat:'goblet',goblet:'goblet',stacco:'stacco',rumeno:'rdl',rematore:'remb',affond:'bulg',bulgar:'bulg',plank:'core1','dead bug':'core1','hip thrust':'hip',glutei:'hip','lento':'lento',spalle:'lento',curl:'curl',bicipit:'curl',tricipit:'curlb','french press':'curlb',alzate:'alzlat',pullover:'pull',piegament:'push','push up':'push',flession:'push',farmer:'farm',thruster:'thr',swing:'fin',polpacc:'calf',mobilita:'mob'};
+  const ek=Object.keys(exK).find(k=>t.indexOf(k)>=0);
+  if(ek){const id=exK[ek];let ex=null;for(const s in SESSIONS)for(const e of SESSIONS[s].ex){if(e.id===id)ex=e;}
+    if(ex)return R('<b>'+esc(ex.n)+'</b> · '+ex.sets+' × '+esc(ex.reps)+'<br>'+esc(EX_WHY[id]||'')+'<br><br><span class="mute small">Come si fa: '+esc(ex.cue)+'</span>');}
+  if(gHas(t,['rir','cedimento','quante ripetizioni','quanto peso','che peso','carico','quanti kg'])) return R('<b>Scegli il carico così</b>: devi finire la serie sentendo che ne avresti fatte ancora '+phase(td).rir.split(' ')[0]+' (è il RIR). Quando arrivi al massimo delle ripetizioni in tutte le serie, la volta dopo aggiungi 1–2,5 kg: te lo segnala l\'app.',['Perché fermarsi prima del cedimento?']);
+  if(gHas(t,['corsa','correre','corro','cardio','camminat','cammino','camminare'])) return R(gWhy('camminata'));
+  if(gHas(t,['allenament','allenare','allenarmi','scheda','esercizi','sessione','palestra','pesi','forza'])){const p=planOf(td);
+    if(p.kind==='forza'){const S0=SESSIONS[p.ses];return R('Oggi: <b>'+p.ses+' · '+esc(S0.name)+'</b>'+gList(S0.ex.map(e0=>{const e=exFor(e0,td);return esc(e.n)+' · '+setsFor(e,td)+'×'+esc(e.reps);}))+gAct('Inizia',"openW('"+td+"')"),['Perché i pesi?','Cos\'è il RIR?']);}
+    return R('Oggi non è giorno di pesi: '+esc(planLabel(p).toLowerCase())+'. La rotazione è A petto e schiena · B gambe e core · C spalle e braccia · D total body. Se sei riposato puoi fare una sessione extra dalla sezione Allenamento.',['Perché oggi questo?','E domani?']);}
+  // 9. numeri e progressi
+  if(gHas(t,['calorie','kcal','proteine','carboidrati','grassi','macro','porzioni'])){const tg=targets(td);return R('I tuoi obiettivi: <b>'+tg.kcal+' kcal</b> · '+tg.prot+' g proteine · '+tg.carb+' g carboidrati · '+tg.fat+' g grassi.<br>In porzioni: '+tg.por.P+' proteine, '+tg.por.C+' carboidrati, 3 grassi, 2 frutta, 2+ verdure.',['Perché 2150 kcal?','Perché tante proteine?']);}
+  if(gHas(t,['peso','dimagrit','perso','progress','bilancia','pesat','chili','risultat','come sto andando','come vado','come vanno'])){
+    const ks=Object.keys(S.weights).sort();
+    if(ks.length<2) return R('Ancora pochi dati: pesati ogni mattina a digiuno e segna il peso in Oggi. Dopo una settimana ti dico come stai andando davvero. 📈',['Perché pesarsi ogni giorno?']);
+    const an=analysis(), w0=S.weights[ks[0]], cur=an.a0?an.a0.a:S.weights[ks[ks.length-1]], dlt=cur-w0;
+    return R('Partenza <b>'+w0.toFixed(1)+' kg</b>, media attuale <b>'+cur.toFixed(1)+' kg</b> ('+(dlt<=0?'−':'+')+Math.abs(dlt).toFixed(1)+' kg).<br>'+esc(an.msg)+(dlt<0?' Bravo Mat! 👏':''),['Perché la media?']);
+  }
+  if(gHas(t,['girovita','circonferenza','misura della vita','vita'])) return R(esc(WHY.vita.x[0])+' '+esc(WHY.vita.x[1]));
+  // 10. altri temi
+  if(gHas(t,['consiglio','suggeriment','curiosit','dimmi una cosa'])) return R('💡 '+pickBy(G_TIPS,Date.now()));
+  if(gHas(t,['sonno','dormire','dormo','riposino','insonnia'])) return R(esc(WHY.sonno.x[0])+' '+esc(WHY.sonno.x[1])+' Dopo la notte: occhiali scuri al rientro, stanza buia e fresca, telefono in silenzio.');
+  if(gHas(t,['acqua','bere','bevo','idrat'])) return R(esc(WHY.acqua.x[0])+' Obiettivo: 6 bottigliette da mezzo litro. Segnale buono: urina chiara.');
+  if(gHas(t,['pancia','addominal','viso','guance'])) return R(WHY.pancia.x.map(esc).join('<br><br>'));
+  if(gHas(t,['cosa faccio','che faccio','oggi','programma','turno','turni','stanotte','reperibil'])){const p=planOf(td);return R(gPlanDay(td,'Oggi')+(p.kind==='forza'?gAct('Apri allenamento '+p.ses,"openW('"+td+"')"):''),['E domani?','Perché oggi questo?']);}
+  // 11. alimenti e spiegazioni
+  const fk=findFood(t);
+  if(fk){const F=FOODS[fk];return R('<b>'+esc(F.n)+'</b>: '+esc(FOOD_WHY[fk]||'')+'<br><span class="mute small">'+F.k+' kcal per 100 g · P '+F.p+' g · C '+F.c+' g · G '+F.f+' g</span>');}
+  const k=whySearch(t,2);
+  if(k) return R(gWhy(k));
+  return R('Mmm, questa non la so ancora. 🤔 Sono un coach semplice: conosco i tuoi turni, il piano, il menù, i progressi e il perché delle scelte. Prova con una di queste:',['Cosa faccio oggi?','Cosa mangio a cena?','Posso mangiare la pizza?','Ho fame','Come vanno i progressi?','Motivami']);
+}
+function gChat(){if(!S.chat)S.chat=[];return S.chat;}
+function gPush(f,html,chips){const c=gChat();c.push({f:f,t:html,c:chips||[],ts:Date.now()});while(c.length>80)c.shift();}
+function gSend(txt){
+  txt=String(txt||'').trim();if(!txt)return;
+  if(txt==='Attiva notifiche'){openNotif();return;}
+  gPush('u',esc(txt));
+  const r=gReply(txt);
+  save();render();
+  const box=$('chatEnd');if(box)box.insertAdjacentHTML('beforebegin','<div class="g-row" id="typing">'+guillySVG(30)+'<div class="msg g"><span class="typing"><i></i><i></i><i></i></span></div></div>');
+  scrollChat();
+  setTimeout(()=>{gPush('g',r.html,r.chips);save();render();scrollChat();},550);
+}
+function scrollChat(){const e=$('chatEnd');if(e)e.scrollIntoView({block:'end',behavior:'smooth'});}
+function vGuilly(){
+  const c=gChat();
+  if(!c.length) gPush('g','Ciao Mat! Sono <b>Guilly</b> 🟡, il tuo coach. Conosco turni, allenamenti, menù e progressi, e ti spiego il perché di ogni scelta. Chiedimi quello che vuoi!',['Cosa faccio oggi?','Cosa mangio a cena?','Perché camminare e non correre?','Motivami']);
+  const st=notifStatus();
+  let h='<div class="card" style="padding:12px 14px"><div class="g-head">'+guillySVG(54,'wink')+'<div style="flex:1"><div class="nm">Guilly</div><div class="st">● sempre disponibile, anche offline</div></div><button class="hdr-btn" onclick="openNotif()" title="Notifiche" aria-label="Notifiche">'+(st.on?'🔔':'🔕')+'</button></div></div>';
+  h+='<div class="chat">';
+  const last=c.length-1;
+  c.forEach((m,i)=>{
+    if(m.f==='g') h+='<div class="g-row">'+guillySVG(30)+'<div class="msg g">'+m.t+'</div></div>';
+    else h+='<div class="msg u">'+m.t+'</div>';
+    if(i===last&&m.f==='g'&&m.c&&m.c.length) h+='<div class="chips" style="margin-left:38px">'+m.c.map(x=>'<button onclick="gSend(this.textContent)">'+esc(x)+'</button>').join('')+'</div>';
+  });
+  h+='<div id="chatEnd"></div></div>';
+  h+='<div class="chat-in"><form onsubmit="event.preventDefault();const i=document.getElementById(\'gIn\');const v=i.value;i.value=\'\';gSend(v);"><input id="gIn" placeholder="Scrivi a Guilly…" autocomplete="off" enterkeyhint="send"><button class="send" aria-label="Invia">➤</button></form><div class="row between" style="margin-top:6px"><span class="small mute">Le risposte arrivano dai dati dell\'app, nessuna AI esterna.</span><button class="btn sm ghost" onclick="clearChat()">Pulisci</button></div></div>';
+  return h;
+}
+function clearChat(){S.chat=[];save();render();}
+
+// ---------- notifiche ----------
+function notifStatus(){
+  const sup=('Notification' in window)&&('serviceWorker' in navigator);
+  const perm=sup?Notification.permission:'unsupported';
+  return {sup:sup,perm:perm,on:sup&&perm==='granted',push:!!(S.push&&S.push.sub),standalone:window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches};
+}
+function b64u(buf){return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function b64uDec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const b=atob(s);return Uint8Array.from(b,c=>c.charCodeAt(0));}
+async function notifEnable(){
+  const st=notifStatus();
+  if(!st.sup){toast('Questo browser non supporta le notifiche');return;}
+  const p=await Notification.requestPermission();
+  if(p!=='granted'){toast('Permesso negato: puoi riattivarlo dalle impostazioni del browser');openNotif();return;}
+  try{
+    const reg=await navigator.serviceWorker.ready;
+    if('periodicSync' in reg){try{await reg.periodicSync.register('guilly-daily',{minInterval:6*3600*1000});}catch(e){}}
+    await reg.showNotification('Guilly 💪',{body:'Notifiche attive! Ti scriverò per allenamenti, pasti e qualche consiglio.',icon:'icon-192.png',badge:'icon-192.png',tag:'guilly-test'});
+  }catch(e){toast('Notifiche attive (serve l\'app online su https)');}
+  S.notifOn=true;save();openNotif();
+}
+async function pushSetup(){
+  try{
+    const reg=await navigator.serviceWorker.ready;
+    if(!S.push||!S.push.pub){
+      const kp=await crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify']);
+      const raw=await crypto.subtle.exportKey('raw',kp.publicKey);
+      const jwk=await crypto.subtle.exportKey('jwk',kp.privateKey);
+      S.push={pub:b64u(raw),priv:jwk.d};
+    }
+    let sub=await reg.pushManager.getSubscription();
+    if(sub){const k=sub.options&&sub.options.applicationServerKey;if(k&&b64u(k)!==S.push.pub){await sub.unsubscribe();sub=null;}}
+    if(!sub) sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64uDec(S.push.pub)});
+    S.push.sub=sub.toJSON();save();openNotif();toast('Codice pronto: copialo e incollalo su GitHub');
+  }catch(e){toast('Non riesco ad attivare il push: '+(e&&e.message?e.message:e));}
+}
+function pushCode(){
+  if(!S.push||!S.push.sub)return '';
+  return JSON.stringify({sub:S.push.sub,pub:S.push.pub,priv:S.push.priv,name:S.settings.name,start:S.settings.start,xlsx:S.settings.xlsxUrl});
+}
+async function copyCode(){try{await navigator.clipboard.writeText(pushCode());toast('Codice copiato ✓');}catch(e){const ta=$('pcode');if(ta){ta.select();toast('Seleziona e copia il testo');}}}
+async function testNotif(){
+  try{const reg=await navigator.serviceWorker.ready;await reg.showNotification('Guilly 💪',{body:pickBy(G_MOTIV,Date.now()),icon:'icon-192.png',badge:'icon-192.png',tag:'guilly-test'});}catch(e){toast('Prova non riuscita: apri l\'app installata da internet');}
+}
+function openNotif(){
+  const st=notifStatus();
+  let h='<div class="row between"><h2 style="margin:0">🔔 Notifiche di Guilly</h2><button class="btn sm ghost" onclick="closeSheet()">✕</button></div>';
+  h+='<div class="card" style="margin-top:12px"><h3 style="margin-top:0">1 · Notifiche sul telefono</h3>';
+  if(!st.sup) h+='<p class="small">Questo browser non supporta le notifiche. Installa l\'app sulla schermata Home e aprila da lì.</p>';
+  else if(st.perm==='granted') h+='<p class="small">✅ Attive. Guilly può scriverti: sull\'app installata in Android, anche un consiglio al giorno senza altre impostazioni.</p><button class="btn sm ghost" onclick="testNotif()">Manda una notifica di prova</button>';
+  else if(st.perm==='denied') h+='<p class="small">❌ Bloccate. Riattivale dalle impostazioni del browser (Sito → Notifiche → Consenti), poi torna qui.</p>';
+  else h+='<p class="small">Consenti a Guilly di mandarti notifiche.</p><button class="btn gold" onclick="notifEnable()">Attiva notifiche</button>';
+  if(!st.standalone) h+='<p class="small mute" style="margin-bottom:0">Consiglio: usa l\'app installata sulla schermata Home, le notifiche funzionano meglio.</p>';
+  h+='</div>';
+  h+='<div class="card"><h3 style="margin-top:0">2 · Anche a telefono bloccato e app chiusa</h3><p class="small">Per i promemoria programmati sui tuoi turni (pesata, allenamento, pasti, notte) Guilly usa il tuo repo GitHub: un\'azione automatica legge i turni ogni ora e ti manda la notifica giusta. Niente account esterni, solo il tuo GitHub. Si configura una volta sola:</p>';
+  if(st.perm!=='granted') h+='<p class="small"><b>Prima completa il punto 1.</b></p>';
+  else if(!st.push) h+='<button class="btn gold" onclick="pushSetup()">Genera il mio codice</button>';
+  else{
+    h+='<ol class="steps-n"><li>Copia il codice qui sotto.</li><li>Apri GitHub da browser: repo <b>Diet-Training</b> → <b>Settings</b> → <b>Secrets and variables</b> → <b>Actions</b> → <b>New repository secret</b>.</li><li>Nome: <b>GUILLY_PUSH</b>. Nel campo Secret incolla il codice e premi <b>Add secret</b>.</li><li>Prova: tab <b>Actions</b> → <b>Guilly notifiche</b> → <b>Run workflow</b>. In un minuto arriva la notifica di prova.</li></ol>';
+    h+='<textarea class="code" id="pcode" readonly>'+esc(pushCode())+'</textarea><div class="row" style="margin-top:8px"><button class="btn" onclick="copyCode()">📋 Copia codice</button><button class="btn ghost sm" onclick="pushSetup()">Rigenera</button></div>';
+    h+='<p class="small mute">Il codice è personale: incollalo solo nel secret di GitHub, non in chat o nei file. Se cambi telefono o reinstalli l\'app, rigeneralo e aggiorna il secret.</p>';
+  }
+  h+='</div><div class="card"><h3 style="margin-top:0">Quando ti scrive Guilly</h3><p class="small mute" style="margin:0 0 4px">5–6 messaggi al giorno, con orari diversi in base al turno.</p><ul class="clean small"><li><b>Mattino</b>: pesata e piano del giorno (presto se sei di mattino)</li><li><b>Prima dell\'allenamento</b> o della camminata, con l\'orario giusto per il turno</li><li><b>Notte</b>: riposino, cena alle 19 e spuntino da portare</li><li><b>Lunedì</b>: misura della vita e lista della spesa</li><li>Spuntini, pasti e promemoria per l\'acqua</li><li>Consigli e spinte motivazionali 💪</li></ul></div>';
+  $('sheetIn').innerHTML=h;$('sheet').classList.add('on');
+}
+
 // ============ MENÙ ============
 function tplOf(d){const sh=shiftOf(d);return {sh:sh,tpl:TEMPL[sh.t==='nd'?'libero':sh.t]||TEMPL.libero};}
 function slotsOf(d){
@@ -1041,20 +1400,88 @@ function drawCibo(){
 }
 
 // ============ RENDER ============
+const TAB_TITLE = {oggi:'',piano:'Piano',all:'Allenamento',cibo:'Alimentazione',guilly:'Guilly',io:'Io'};
+const NAV_ACTIVE = {all:'piano'};
+let ioTab = 'prog';
 function render(){
-  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===curTab));
+  const act=NAV_ACTIVE[curTab]||curTab;
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===act));
   const ph=phase(today());
-  $('hdrSub').textContent=ph.key==='pre'?('Si parte '+fmtLong(S.settings.start)):('Settimana '+ph.w+' · '+ph.lab+' · '+fmtShort(today()));
+  $('hdrTitle').innerHTML=curTab==='oggi'||!TAB_TITLE[curTab]?'Diet <span>&amp; Training</span>':esc(TAB_TITLE[curTab]);
+  $('hdrSub').textContent=ph.key==='pre'?('Si parte '+fmtLong(S.settings.start)):('Settimana '+ph.w+' · '+ph.lab);
   const v=$('view');
   if(curTab==='oggi') v.innerHTML=vOggi();
-  else if(curTab==='cal') v.innerHTML=vCal();
+  else if(curTab==='piano') v.innerHTML=vPiano();
   else if(curTab==='all') v.innerHTML=vAll();
   else if(curTab==='cibo'){v.innerHTML=vCibo();if(cTab==='graf')drawCibo();}
-  else if(curTab==='prog'){v.innerHTML=vProg();drawChart();}
-  else v.innerHTML=vSet();
+  else if(curTab==='guilly') v.innerHTML=vGuilly();
+  else {v.innerHTML=vIo();if(ioTab==='prog')drawChart();}
 }
-
+function ring(pct,val,unit,label,col){
+  const r=34,c=2*Math.PI*r,p=clamp(pct,0,1);
+  return '<div><div class="ring"><svg viewBox="0 0 84 84"><circle cx="42" cy="42" r="'+r+'" fill="none" stroke="#edf0f6" stroke-width="9"/><circle cx="42" cy="42" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(c*p).toFixed(1)+' '+c.toFixed(1)+'"/></svg><div class="rv">'+val+'<small>'+unit+'</small></div></div><div class="ring-l">'+label+'</div></div>';
+}
 function shiftChip(sh){return '<span class="chip t-'+sh.t+'">'+esc(sh.code==='-'?T_NAME[sh.t]:sh.code)+'</span>';}
+function vOggi(){
+  const d=today(), sh=shiftOf(d), p=planOf(d), t=targets(d), dd=day(d), ph=phase(d), h0=new Date().getHours();
+  const saluto=h0<12?'Buongiorno':h0<18?'Buon pomeriggio':'Buonasera';
+  let h='<section class="hero"><div class="hero-top"><div><div class="hero-date">'+fmtLong(d)+'</div><div class="hero-title">'+saluto+', Mat</div></div>'+shiftChip(sh)+'</div>';
+  h+='<div class="hero-shift">🚑 '+esc(sh.lab)+(sh.ora?' · '+esc(sh.ora):'')+(sh.override?' · modificato':'')+'</div>';
+  if(sh.rep&&sh.rep.length) h+='<div class="hero-shift">📟 Reperibile '+sh.rep.join(', ')+'</div>';
+  h+='<div class="g-bubble" onclick="go(\'guilly\')">'+guillySVG(56)+'<div class="g-say"><b>Guilly</b>'+esc(guillyHome())+'</div></div></section>';
+
+  if(ph.key==='pre') h+='<div class="alert info">🏔️ Il percorso parte <b>'+fmtLong(S.settings.start)+'</b>. Intanto esplora l\'app e chiedi a Guilly quello che vuoi.</div>';
+  if(!S.settings.medOk) h+='<div class="alert warn"><b>Controllo medico</b>: pressione, ECG ed esami del sangue (glicemia, colesterolo, tiroide). Puoi iniziare subito con camminate e carichi leggeri. <button class="btn sm ghost" style="margin-top:6px" onclick="setMed()">Fatto ✓</button></div>';
+  const hasData=Object.keys(S.weights).length+Object.keys(S.logs).length>0||Object.values(S.days).some(x=>x.P||x.C||x.G||x.Fr||x.V||x.water||x.walk||x.steps||x.alc);
+  if(hasData&&(!S.lastBackup||diffD(S.lastBackup,d)>=7)) h+='<div class="alert warn"><b>Backup</b>: i dati sono solo su questo telefono. '+(S.lastBackup?'Ultimo: '+fmtShort(S.lastBackup)+'.':'Non hai ancora fatto un backup.')+' <button class="btn sm" style="margin-top:6px" onclick="exportData()">Fai backup ora</button></div>';
+  if(t.maint) h+='<div class="alert ok"><b>Settimana di mantenimento</b>: +2 porzioni di carboidrati al giorno per ricaricare. L\'allenamento resta uguale.'+wb('fase_mant')+'</div>';
+
+  // piano di oggi
+  if(p.kind!=='pre'){
+    const tt=TRAIN_TIME[sh.t]||'';
+    h+='<div class="card"><div class="plan"><div class="plan-ic '+p.kind+'">'+(p.kind==='forza'?p.ses:p.kind==='attivo'?'🚶':'💤')+'</div><div style="flex:1"><div class="plan-k">'+(p.kind==='forza'?'Allenamento di forza':p.kind==='attivo'?'Giorno attivo':'Recupero')+wb('plan_'+p.kind)+'</div><div class="plan-t">'+esc(p.kind==='forza'?SESSIONS[p.ses].name:p.kind==='attivo'?'Camminata veloce + mobilità':'Riposo e passeggiata breve')+'</div><div class="plan-m">'+(tt?'⏰ '+tt+' · ':'')+(p.kind==='forza'?'circa 60 minuti':p.kind==='attivo'?(weekNo(d)<=1?'35–45′':'40–60′')+' + 10′ mobilità':'nessun allenamento')+'</div></div></div>';
+    if(p.kind==='forza'){const done=S.logs[d]&&S.logs[d].done;h+='<button class="btn '+(done?'ok':'gold')+' block" style="margin-top:12px" onclick="openW(\''+d+'\')">'+(done?'Completato ✓ · rivedi':'Inizia allenamento ▶')+'</button>';}
+    else if(p.kind==='attivo') h+='<div class="row" style="margin-top:12px;flex-wrap:nowrap"><button class="btn '+(dd.walk?'ok':'gold')+'" style="flex:1" onclick="toggleWalk(\''+d+'\')">'+(dd.walk?'Fatto ✓':'Segna come fatto')+'</button><button class="btn ghost" onclick="wDate=\'\';go(\'all\')">Dettagli</button></div>';
+    h+='</div>';
+  }
+
+  // nutrizione
+  const eaten=eatenKcal(d)||0, P=dd.P||0;
+  h+='<div class="card"><div class="row between"><h2 style="margin:0">Nutrizione oggi'+wb('porzioni')+'</h2><a href="#" class="small" style="font-weight:700" onclick="cTab=\'menu\';menuDay=\''+(d<S.settings.start?S.settings.start:d)+'\';go(\'cibo\');return false">Menù ›</a></div>';
+  h+='<div class="rings" style="margin-top:12px">'+ring(eaten/t.kcal,eaten?Math.round(eaten):'0','kcal','di '+t.kcal,eaten>t.kcal*1.05?'#e5484d':'#0f1f3d')+ring(P/t.por.P,P+'/'+t.por.P,'porz.','Proteine','#2563eb')+ring((dd.water||0)/6,((dd.water||0)/2).toString().replace('.',',')+' L','di 3 L','Acqua','#06b6d4')+'</div>';
+  h+='<div class="ctr">';
+  for(const k of ['P','C','G','Fr','V']){
+    const tg=t.por[k], v=dd[k]||0, cls=v>tg&&(k==='C'||k==='G')?'over':(v>=tg?'full':'');
+    h+='<div class="c '+cls+'"><button onclick="inc(\''+k+'\',-1)" aria-label="meno">−</button><div style="text-align:center"><div class="lab">'+PORTIONS[k].lab+'</div><b>'+v+'</b><span class="tg">/'+tg+'</span></div><button onclick="inc(\''+k+'\',1)" aria-label="più">+</button></div>';
+  }
+  h+='<div class="c '+(dd.water>=6?'full':'')+'"><button onclick="inc(\'water\',-1)">−</button><div style="text-align:center"><div class="lab">Acqua ½ L</div><b>'+(dd.water||0)+'</b><span class="tg">/6</span></div><button onclick="inc(\'water\',1)">+</button></div>';
+  const wa=weekAlc(d);
+  h+='<div class="c '+(wa>2?'over':'')+'"><button onclick="inc(\'alc\',-1)">−</button><div style="text-align:center"><div class="lab">Alcol sett.</div><b>'+wa+'</b><span class="tg">/2</span></div><button onclick="inc(\'alc\',1)">+</button></div>';
+  h+='</div><div class="row small mute" style="margin-top:8px">Perché: acqua'+wb('acqua')+' alcol'+wb('alcol')+' bibite'+wb('bibite')+'</div>'+(ph.key!=='pre'?'<button class="btn ghost block" style="margin-top:10px" onclick="followMenu()">✓ Ho seguito il menù di oggi</button>':'');
+  h+='<div class="row" style="margin-top:12px"><label class="small" style="font-weight:700" for="steps">👟 Passi</label><input id="steps" type="number" inputmode="numeric" value="'+esc(dd.steps)+'" placeholder="0" onchange="setSteps(this.value)" style="width:110px"><span class="mute small">obiettivo '+(weekNo(d)<=1?'8.000':'10.000')+'</span>'+wb('passi')+'</div></div>';
+
+  // peso
+  const qw=S.weights[d];
+  h+='<div class="card"><h2>⚖️ Peso di stamattina'+wb('peso')+'</h2><div class="row"><input id="qw" type="number" step="0.1" inputmode="decimal" placeholder="kg" value="'+(qw!=null?qw:'')+'"><button class="btn" onclick="saveQW()">Salva</button><span class="mute small">a digiuno, dopo il bagno</span></div></div>';
+
+  // tabella di marcia
+  h+='<div class="card"><details open style="background:none;padding:0;margin:0"><summary style="font-size:18px;font-weight:800">🗓️ Tabella di marcia'+wb('turni')+'</summary><div style="margin-top:8px">'+timelineHTML(d)+'</div></details></div>';
+  return h;
+}
+function vPiano(){
+  let h=vCal();
+  h+=nextList();
+  h+='<div class="card"><h2>🏋️ Sessione extra</h2><p class="small mute" style="margin-top:0">Solo se ti senti riposato: la rotazione riparte dalla sessione che scegli.</p><div class="row">'+ROT.map(s=>'<button class="btn ghost sm" onclick="pickSes(\''+s+'\')">'+s+' · '+esc(SESSIONS[s].name)+'</button>').join('')+'</div></div>';
+  return h;
+}
+function vIo(){
+  const tabs=[['prog','📈 Progressi'],['set','⚙️ Impostazioni'],['why','📚 Perché']];
+  let h='<div class="seg">'+tabs.map(t=>'<button class="'+(ioTab===t[0]?'on':'')+'" onclick="ioTab=\''+t[0]+'\';render()">'+t[1]+'</button>').join('')+'</div>';
+  if(ioTab==='prog') h+=vProg();
+  else if(ioTab==='set') h+=vSet();
+  else h+=vWhyLib();
+  return h;
+}
 
 function timelineHTML(d){
   const sh=shiftOf(d), p=planOf(d);
@@ -1089,44 +1516,6 @@ function porTxt(p){
   return Object.keys(p).map(k=>p[k]+' '+map[k]).join(' · ');
 }
 
-function vOggi(){
-  const d=today(), sh=shiftOf(d), p=planOf(d), t=targets(d), dd=day(d), ph=phase(d);
-  let h='';
-  if(!S.settings.medOk){
-    h+='<div class="alert warn"><b>Controllo medico</b>: prenota dal medico pressione, ECG ed esami del sangue (glicemia, colesterolo, tiroide). Puoi iniziare subito con camminate e carichi leggeri. <button class="btn sm ghost" onclick="setMed()">Fatto ✓</button></div>';
-  }
-  if(!Object.keys(S.weights).length){
-    h+='<div class="alert info"><b>Primo passo</b>: domattina pesati a digiuno dopo il bagno e misura la vita all\'altezza dell\'ombelico. Inserisci i valori in <a href="#" onclick="go(\'prog\');return false">Progressi</a>.</div>';
-  }
-  const hasData=Object.keys(S.weights).length+Object.keys(S.logs).length>0||Object.values(S.days).some(x=>x.P||x.C||x.G||x.Fr||x.V||x.water||x.walk||x.steps||x.alc);
-  if(hasData&&(!S.lastBackup||diffD(S.lastBackup,d)>=7)) h+='<div class="alert warn"><b>Backup</b>: i dati sono salvati solo in questo browser. Se cancelli la cronologia o i dati dei siti, li perdi. '+(S.lastBackup?'Ultimo backup: '+fmtShort(S.lastBackup)+'.':'Non hai ancora fatto un backup.')+' <button class="btn sm" onclick="exportData()">Fai backup ora</button></div>';
-  if(ph.key==='pre') h+='<div class="alert info">Il percorso parte <b>'+fmtLong(S.settings.start)+'</b>. Puoi cambiare la data in Altro.</div>';
-  if(t.maint) h+='<div class="alert ok"><b>Settimana di mantenimento</b>: mangi di più (+2 porzioni di carboidrati) per far riposare metabolismo e testa. Continui ad allenarti normalmente.</div>';
-  h+='<div class="card"><div class="row between"><h2 style="text-transform:capitalize">'+fmtLong(d)+'</h2>'+shiftChip(sh)+'</div>';
-  h+='<div><b>'+esc(sh.lab)+'</b> '+(sh.ora?'<span class="mute">· '+esc(sh.ora)+'</span>':'')+(sh.override?' <span class="chip lite">modificato</span>':'')+'</div>';
-  if(sh.rep&&sh.rep.length) h+='<div class="alert info" style="margin:8px 0 0">📟 Reperibile: '+sh.rep.join(', ')+'. '+(sh.rep.indexOf('07-13')>=0?'Se ti alleni in mattinata fallo a casa con il telefono vicino; se ti chiamano, sposta l\'allenamento al pomeriggio.':'')+'</div>';
-  h+='<div style="margin-top:10px" class="row between"><div><div class="mute small">Piano di oggi</div><div class="cond" style="font-size:20px;font-weight:700">'+esc(planLabel(p))+(p.kind!=='pre'?wb('plan_'+p.kind):'')+'</div></div>';
-  if(p.kind==='forza') h+='<button class="btn gold" onclick="openW(\''+d+'\')">Apri ▶</button>';
-  else if(p.kind==='attivo') h+='<button class="btn '+(dd.walk?'ok':'ghost')+'" onclick="toggleWalk(\''+d+'\')">'+(dd.walk?'Fatto ✓':'Segna fatto')+'</button>';
-  h+='</div></div>';
-
-  h+='<div class="card"><h2>Tabella di marcia'+wb('turni')+'</h2>'+timelineHTML(d)+'</div>';
-
-  h+='<div class="card"><div class="row between"><h2>Porzioni di oggi'+wb('porzioni')+'</h2><span class="mute small">≈ '+t.kcal+' kcal · '+t.prot+' g proteine</span></div><div class="ctr">';
-  for(const k of ['P','C','G','Fr','V']){
-    const tg=t.por[k], v=dd[k]||0, cls=v>tg&&(k==='C'||k==='G')?'over':(v>=tg?'full':'');
-    h+='<div class="c '+cls+'"><button onclick="inc(\''+k+'\',-1)">−</button><div style="text-align:center"><div class="lab">'+PORTIONS[k].lab+'</div><b>'+v+'</b><span class="tg"> / '+tg+'</span></div><button onclick="inc(\''+k+'\',1)">+</button></div>';
-  }
-  h+='<div class="c '+(dd.water>=6?'full':'')+'"><button onclick="inc(\'water\',-1)">−</button><div style="text-align:center"><div class="lab">Acqua ½ L</div><b>'+dd.water+'</b><span class="tg"> / 6</span></div><button onclick="inc(\'water\',1)">+</button></div>';
-  const wa=weekAlc(d);
-  h+='<div class="c '+(wa>2?'over':'')+'"><button onclick="inc(\'alc\',-1)">−</button><div style="text-align:center"><div class="lab">Alcol (sett.)</div><b>'+wa+'</b><span class="tg"> / max 2</span></div><button onclick="inc(\'alc\',1)">+</button></div>';
-  h+='</div>'+(ph.key!=='pre'?'<button class="btn sm ghost" style="margin-top:10px" onclick="followMenu()">✓ Ho seguito il menù di oggi</button>':'')+'<div class="row" style="margin-top:10px"><label class="mute small" for="steps">Passi di oggi</label><input id="steps" type="number" inputmode="numeric" value="'+esc(dd.steps)+'" placeholder="0" onchange="setSteps(this.value)" style="width:110px"><span class="mute small">obiettivo '+(weekNo(d)<=1?'8.000':'10.000')+'</span>'+wb('passi')+'</div>';
-  h+='<p class="mute small" style="margin-bottom:0">Ogni drink (birra 33 cl, un calice di vino o un cocktail) vale come 1 porzione di carboidrati. Bibite: solo acqua o versioni zero.</p><div class="row small mute">Perché: acqua'+wb('acqua')+' alcol'+wb('alcol')+' bibite'+wb('bibite')+'</div></div>';
-
-  const qw=S.weights[d];
-  h+='<div class="card"><h2>Peso di stamattina'+wb('peso')+'</h2><div class="row"><input id="qw" type="number" step="0.1" inputmode="decimal" placeholder="kg" value="'+(qw!=null?qw:'')+'"><button class="btn" onclick="saveQW()">Salva</button><span class="mute small">a digiuno, dopo il bagno</span></div></div>';
-  return h;
-}
 function weekAlc(d){
   const st=addD(d,-dowIdx(d));let s=0;
   for(let i=0;i<7;i++){const x=S.days[addD(st,i)];if(x)s+=x.alc||0;}
@@ -1182,7 +1571,7 @@ function lastLog(exId,before){
 function vAll(){
   const td=today();
   if(!wDate){const p=planOf(td);wDate=td;if(p.kind!=='forza'&&!(S.logs[td]&&S.logs[td].session))wDate='';}
-  let h='';
+  let h='<div class="row between" style="margin-bottom:10px"><button class="btn sm ghost" onclick="go(\'piano\')">← Piano</button><button class="btn sm ghost" onclick="go(\'oggi\')">Oggi</button></div>';
   if(!wDate){
     const p=planOf(td);
     h+='<div class="card"><h2>Oggi: '+esc(planLabel(p))+(p.kind!=='pre'?wb('plan_'+p.kind):'')+'</h2>';
@@ -1372,7 +1761,7 @@ function vSet(){
 }
 
 // ============ AZIONI ============
-function go(t){curTab=t;if(t!=='all')wDate=wDate;render();window.scrollTo(0,0);}
+function go(t){const al={prog:['io','prog'],set:['io','set'],cal:['piano']};if(al[t]){if(al[t][1])ioTab=al[t][1];t=al[t][0];}curTab=t;render();window.scrollTo(0,0);if(t==='guilly')setTimeout(scrollChat,60);}
 function inc(k,n){const dd=day(today());dd[k]=Math.max(0,(dd[k]||0)+n);save();render();}
 function setSteps(v){day(today()).steps=v;save();}
 function toggleWalk(d){const dd=day(d);dd.walk=!dd.walk;save();render();if(dd.walk)toast('Giorno attivo registrato 👍');}
@@ -1453,6 +1842,7 @@ function init(){
   });
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
   try{if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js');}catch(e){}
+  $('hdrG').innerHTML=guillySVG(36,'wink');
   render();
   const last=S.shiftsUpdated?new Date(S.shiftsUpdated).getTime():0;
   if(Date.now()-last>6*3600*1000) refreshShifts(false);
